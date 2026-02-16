@@ -1,5 +1,6 @@
 import React from 'react';
-import ThreeColumnLayout from '../components/ThreeColumnLayout.jsx';
+// Ensure this matches the file name EXACTLY
+import ThreeColumnLayout from '../components/ThreeColumnLayout'; 
 
 const HomePage = () => {
   return <ThreeColumnLayout />;
