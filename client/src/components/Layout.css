@@ -1,0 +1,272 @@
+
+@import url('https://fonts.googleapis.com/css2?family=League+Script&display=swap');
+:root {
+  /* Define heights here so we can update them easily in media queries */
+  --top-nav-height: 55px;
+  --cat-nav-height: 60px;
+}
+
+body, html {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden; /* Handle horizontal overflow here, NOT in .parent */
+}
+
+/* ==================== GRID LAYOUT SYSTEM ==================== */
+.parent {
+  display: block;
+  min-height: 100vh;
+  background: #f8f9fa;
+  position: relative;
+  }
+
+/* --- Top Navbar (Always Visible) --- */
+.div3 {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: var(--top-nav-height);
+  z-index: 1002; /* Topmost layer */
+  background: #ffffff;
+  border-bottom: 1px solid #e5e7eb;
+  box-shadow: #f12b8e;
+}
+
+/* --- Category Navbar (Hides on Scroll) --- */
+.div4 {
+  position: fixed;
+  top: var(--top-nav-height); /* Starts exactly below div3 */
+  left: 0;
+  width: 100%;
+  height: 50px;
+  z-index: 1001; /* Layers underneath div3 */
+  background: #ffffff;
+  border-bottom: 1px solid #e5e7eb;
+  box-shadow: #ec7ab3;
+  
+  /* GPU Accelerated Transition - SMOOTH, NO GLITCH */
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+}
+
+/* HIDDEN STATE: Slide UP behind the top navbar */
+.div4.nav-hidden {
+  transform: translateY(-100%); 
+  pointer-events: none; /* User can't click hidden buttons */
+}
+
+/* VISIBLE STATE: Reset position */
+.div4.nav-visible {
+  transform: translateY(0);
+}
+
+/* --- Main Content --- */
+.div13 {
+  /* Push content down so it's not hidden behind the fixed headers */
+  padding-top: calc(var(--top-nav-height) + var(--cat-nav-height));
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+}
+
+/* ==================== COMPONENT STYLES ==================== */
+
+/* --- Top Navbar Styling --- */
+.top-navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0px 20px;
+  height: 100%;
+  max-width: 1920px;
+  margin: 0 auto;
+}
+
+/* Navbar Left */
+.navbar-left {
+  display: flex;
+  padding-left: 85px;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+  max-width: 700px;
+  min-width: 0;
+}
+
+.logo {
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  flex-shrink: 0;
+}
+
+.logo-text {
+  font-size: 29px;
+  font-family: 'League Script';
+  font-style: italic;
+  font-weight: 800;
+  background: linear-gradient(135deg, #ec7ab3 0%, #f9cfe4 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Search Bar */
+.search-container { flex: 1; min-width: 0; }
+.search-wrapper {
+  display: flex;
+  align-items: center;
+  background: #f8f9fa;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 0 10px;
+  height: 34px;
+  width: 420px;
+  transition: all 0.3s ease;
+}
+.search-wrapper:focus-within {
+  border-color: #e28bb6;
+  background: #ffffff;
+}
+.search-icon {
+  width: 20px; height: 20px; color: #f12b8e; margin-right: 12px;
+}
+.search-input {
+  flex: 1; border: none; outline: none; background: transparent; font-size: 15px;
+}
+
+/* Navbar Right */
+.navbar-right { display: flex; align-items: center; gap: 1px; flex-shrink: 0; padding-right: 85px; }
+.nav-item {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 2px; padding: 8px 16px; background: transparent; border: none;
+  cursor: pointer; border-radius: 10px; transition: all 0.3s ease; min-width: 70px;
+}
+.nav-item:hover { background: #f8f9fa; transform: translateY(-2px); }
+.nav-icon { width: 19px; height: 20px; color: #989ca3; }
+.nav-item:hover .nav-icon { color: #e28bb6; }
+.nav-label { font-size: 12px; font-weight: 500; color: #989ca3; }
+.profile-item { margin-left: 8px; border-left: 1px solid #e5e7eb; padding-left: 20px; border-radius: 0; }
+
+/* --- Category Navbar Styling --- */
+.category-navbar {
+  min-height: 50px; /* Use min-height to allow collapsing */
+  display: flex;
+  align-items: center;
+  padding: 0 80px;
+  max-width: 1920px;
+  margin: 0 auto;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.category-navbar::-webkit-scrollbar { display: none; }
+
+.category-container { display: flex; align-items: center; gap: 1px; }
+.category-wrapper { position: relative; }
+
+.category-button {
+  display: flex; align-items: center; gap: 4px; padding: 10px 14px;
+  background: transparent; border: none; font-size: 14px; font-weight: 545;
+  color: #e28bb6; cursor: pointer; border-radius: 8px; transition: all 0.3s ease; white-space: nowrap;
+}
+.category-button.active { color: #667eea; background: #ede9fe; }
+.category-button.highlight { color: #f12b8e; font-weight: 600; font-style: italic; }
+.dropdown-arrow { width: 16px; height: 16px; transition: transform 0.3s ease; }
+.category-button.active .dropdown-arrow { transform: rotate(180deg); }
+
+/* Dropdown */
+.dropdown-menu {
+  position: absolute; top: 100%; left: 0; margin-top: 8px;
+  background: #ffffff; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+  min-width: 240px; z-index: 1001; animation: fadeIn 0.2s ease; border: 1px solid #e5e7eb;
+}
+@keyframes fadeIn { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }
+.dropdown-content { padding: 8px; max-height: 400px; overflow-y: auto; }
+.dropdown-item {
+  width: 100%; text-align: left; padding: 12px 16px; background: transparent;
+  border: none; font-size: 14px; font-weight: 500; color: #374151; cursor: pointer; border-radius: 8px;
+}
+.dropdown-item:hover { background: #f3f4f6; color: #667eea; padding-left: 20px; }
+
+/* ==================== RESPONSIVE DESIGN ==================== */
+/* IMPORTANT: When changing nav heights in media queries, 
+   we MUST update:
+   1. The .parent grid-template-rows (Row 1)
+   2. The .div3 height
+   3. The .div4 top position
+*/
+
+@media (max-width: 1400px) {
+  .top-navbar, .category-navbar { padding: 0 32px; }
+  .navbar-left { max-width: 600px; }
+}
+
+@media (max-width: 1200px) {
+  .top-navbar, .category-navbar { padding: 0 24px; }
+  .navbar-left { max-width: 500px; gap: 16px; }
+  .logo-text { font-size: 32px; }
+  .nav-item { padding: 8px 12px; min-width: 60px; }
+  .category-button { padding: 10px 16px; font-size: 14px; }
+}
+
+@media (max-width: 992px) {
+  /* UPDATE GRID FOR HEIGHT CHANGE */
+  .parent { grid-template-rows: 65px min-content auto; }
+  .div3 { height: 65px; }
+  .div4 { top: 65px; } /* Sticks right below div3 */
+
+  .top-navbar { padding: 0 20px; }
+  .navbar-left { max-width: 400px; gap: 12px; }
+  .logo-text { font-size: 28px; }
+  .search-wrapper { height: 42px; padding: 0 12px; }
+  .navbar-right { gap: 6px; }
+  .nav-item { padding: 6px 10px; min-width: 50px; }
+  .category-navbar { padding: 0 20px; min-height: 48px; }
+  .category-button { padding: 8px 14px; font-size: 13px; }
+}
+
+@media (max-width: 768px) {
+  /* UPDATE GRID FOR HEIGHT CHANGE */
+  .parent { grid-template-rows: 60px min-content auto; }
+  .div3 { height: 60px; }
+  .div4 { top: 60px; }
+
+  .top-navbar { padding: 0 16px; }
+  .navbar-left { max-width: 300px; gap: 10px; }
+  .logo-text { font-size: 26px; }
+  .search-wrapper { height: 40px; }
+  .nav-item { padding: 6px 8px; min-width: 45px; }
+  .category-navbar { padding: 0 16px; min-height: 46px; }
+}
+
+@media (max-width: 640px) {
+  /* UPDATE GRID FOR HEIGHT CHANGE */
+  .parent { grid-template-rows: 56px min-content auto; }
+  .div3 { height: 56px; }
+  .div4 { top: 56px; }
+
+  .top-navbar { padding: 0 12px; }
+  .navbar-left { max-width: 250px; gap: 8px; }
+  .logo-text { font-size: 24px; }
+  .search-wrapper { height: 38px; }
+  .nav-label { display: none; }
+  .category-navbar { padding: 0 12px; min-height: 44px; }
+}
+
+@media (max-width: 480px) {
+  /* UPDATE GRID FOR HEIGHT CHANGE */
+  .parent { grid-template-rows: 54px min-content auto; }
+  .div3 { height: 54px; }
+  .div4 { top: 54px; }
+
+  .top-navbar { padding: 0 10px; }
+  .logo-text { font-size: 22px; }
+  .search-wrapper { height: 36px; }
+  .nav-item { min-width: 36px; padding: 5px; }
+  .category-navbar { padding: 0 10px; min-height: 42px; }
+  .category-button { padding: 6px 10px; font-size: 11px; }
+}
+
+/* Scrollbar Styling for Main Content */
+.div13::-webkit-scrollbar { width: 8px; }
+.div13::-webkit-scrollbar-track { background: #f1f1f1; }
+.div13::-webkit-scrollbar-thumb { background: #c1c1c1; border-radius: 4px; }

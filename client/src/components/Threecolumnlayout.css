@@ -1,0 +1,128 @@
+/* ThreeColumnLayout.css */
+
+/* Main Container - The Grid System */
+.three-column-container {
+  display: grid;
+  grid-template-columns: 280px 1fr 320px; 
+  gap: 15px; /* Space between columns */
+  max-width: 1400px; /* Max width to prevent it from getting too wide on huge screens */
+  margin: 0 auto; /* Centers the whole container on the page */
+  padding: 20px;
+  align-items: start; /* Ensures columns don't stretch vertically unnaturally */
+}
+
+/* --- Left Sidebar --- */
+.left-sidebar {
+  /* It will automatically fill the 280px defined in the grid */
+  width: 100%; 
+}
+
+/* Optional: Make sidebar sticky so it follows when scrolling */
+.left-sidebar, .right-sidebar {
+  position: sticky;
+  padding: 4px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  top: 20px;
+  height: calc(100vh - 40px); /* Full height viewport minus padding */
+  overflow-y: auto; /* Allow internal scrolling if sidebar is too tall */
+  scrollbar-width: none; /* Hide scrollbar for cleaner look (Firefox) */
+}
+/* Hide scrollbar (Chrome/Safari) */
+.left-sidebar::-webkit-scrollbar, .right-sidebar::-webkit-scrollbar {
+  display: none;
+}
+
+/* --- Center Content --- */
+.center-content {
+  width: 100%;
+  min-width: 0; /* CRITICAL: Prevents grid blowouts if images are too wide */
+  display: flex;
+  flex-direction: column; /* Space between Brand Cards */
+}
+
+/* --- Right Sidebar --- */
+.right-sidebar {
+  /* It will automatically fill the 320px defined in the grid */
+  width: 100%;
+}
+
+
+/* --- Existing Styles for your internal components (Simplified for context) --- */
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #eee;
+}
+
+.section-title {
+  font-size: 16px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.view-all-link {
+  font-size: 12px;
+  color: #666;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+/* Brands Grid (Left Sidebar) */
+.brands-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  margin-bottom: 24px;
+}
+.brand-image-wrapper {
+  background: #f4f4f4;
+  aspect-ratio: 1/1;
+  overflow: hidden;
+}
+.brand-image { width: 100%; height: 100%; object-fit: cover; }
+
+/* Shows List (Right Sidebar) */
+.shows-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.show-card {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.show-thumbnail {
+  width: 80px;
+  height: 110px;
+  background: #eee;
+  border-radius: 8px;
+  position: relative;
+  flex-shrink: 0;
+}
+.live-badge {
+  position: absolute;
+  top: 4px; left: 4px;
+  background: #ff0055;
+  color: white;
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+/* Responsive: Collapse to single column on tablets/mobile */
+@media (max-width: 1024px) {
+  .three-column-container {
+    grid-template-columns: 1fr; /* Single column */
+  }
+  
+  /* Hide sidebars on mobile, or move them to bottom */
+  .left-sidebar, .right-sidebar {
+    display: none; /* Simply hiding them for mobile view for now */
+  }
+}

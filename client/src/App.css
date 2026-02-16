@@ -1,42 +1,95 @@
-#root {
-  max-width: 1280px;
+/* Global Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: #f8f9fa;
+}
+
+/* Page Wrapper - No extra padding, full width */
+.page-wrapper {
+  width: 100%;
+  background: #f8f9fa;
+}
+
+/* Page Container Styling */
+.page-container {
+  max-width: 1920px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 40px;
+  background: #ffffff;
+  min-height: 400px;
+}
+
+.page-container h1 {
+  font-size: 32px;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 16px;
+}
+
+.page-container p {
+  font-size: 16px;
+  color: #6b7280;
+  line-height: 1.6;
+}
+
+/* Responsive page container */
+@media (max-width: 1200px) {
+  .page-container {
+    padding: 32px;
+  }
+  
+  .page-container h1 {
+    font-size: 28px;
+  }
+}
+
+@media (max-width: 768px) {
+  .page-container {
+    padding: 24px;
+  }
+  
+  .page-container h1 {
+    font-size: 24px;
+  }
+  
+  .page-container p {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .page-container {
+    padding: 20px;
+  }
+  
+  .page-container h1 {
+    font-size: 22px;
+  }
+  
+  .page-container p {
+    font-size: 14px;
+  }
+}
+
+/* Utility classes */
+.text-center {
   text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.mt-4 {
+  margin-top: 16px;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
+.mb-4 {
+  margin-bottom: 16px;
 }
