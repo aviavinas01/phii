@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Layout from './components/Layout';
-import HomePage from './pages/Homepage';
+import HomePage from './pages/Home';
 import './App.css';
 
 // Placeholder pages for other routes
