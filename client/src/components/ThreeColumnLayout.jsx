@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import BrandFeedCard from './BrandFeedCard.jsx';
-import './ThreeColumnLayout.css';
+import './Threecolumnlayout.css';
 
 const ThreeColumnLayout = () => {
   const [likedItems, setLikedItems] = useState([]);
