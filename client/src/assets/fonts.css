@@ -1,17 +1,28 @@
-/* 
-  Place your Maison de Artisian font files inside: src/assets/fonts/
-  Then update the src paths below to match your exact filenames.
-  Common formats: .woff2, .woff, .ttf, .otf
-*/
+/* src/assets/fonts.css */
 
-
-/* If your font zip only has ONE file (no bold variant), just use: */
-
+/* Maison De Artisian */
 @font-face {
-  font-family: 'MaisonDeArtisian','Abramo';
-  src: url('./fonts/AbrmoScript.ttf') format('truetype'),
-       url('./fonts/MaisonDertisan.otf') format('truetype');
-  font-weight: normal;
+  font-family: 'MaisonDeArtisian';
+  src: url('./fonts/MaisonDeArtisian.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Optional: Italic */
+@font-face {
+  font-family: 'MaisonDeArtisian';
+  src: url('./fonts/MaisonDeArtisian-Italic.otf') format('opentype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* Inter (body font) */
+@font-face {
+  font-family: 'Inter';
+  src: url('./fonts/inter-regular-italic.ttf') format('opentype');
+  font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
