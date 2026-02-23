@@ -4,14 +4,14 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import heroImage from '../../assets/HeroImage.png';
 
-import test1 from '../../assets/images/product/women/test1.png';
-import test2 from '../../assets/images/product/women/test2.png';
-import test3 from '../../assets/images/product/women/test3.png';
-import test4 from '../../assets/images/product/women/test4.png';
-import test1_alt from '../../assets/images/product/women/test1_alt.jpg';
-import test2_alt from '../../assets/images/product/women/test2_alt.jpg';
-import test3_alt from '../../assets/images/product/women/test3_alt.jpg';
-import test4_alt from '../../assets/images/product/women/test4_alt.jpg';
+import test1 from '../../assets/Images/product/women/test1.png';
+import test2 from '../../assets/Images/product/women/test2.png';
+import test3 from '../../assets/Images/product/women/test3.png';
+import test4 from '../../assets/Images/product/women/test4.png';
+import test1_alt from '../../assets/Images/product/women/test1_alt.jpg';
+import test2_alt from '../../assets/Images/product/women/test2_alt.jpg';
+import test3_alt from '../../assets/Images/product/women/test3_alt.jpg';
+import test4_alt from '../../assets/Images/product/women/test4_alt.jpg';
 
 import './HeroSection.css';
 
