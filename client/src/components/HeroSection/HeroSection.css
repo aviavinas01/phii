@@ -1,0 +1,275 @@
+/* ─────────────────────────────────────────────
+   HERO LAYOUT
+───────────────────────────────────────────── */
+
+.hero-section {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.hero-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: #ffffff10;
+}
+
+.hero-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(245, 240, 235, 0.5) 0%,
+    rgba(245, 240, 235, 0.25) 50%,
+    rgba(245, 240, 235, 0.1) 100%
+  );
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  padding-top: 140px;
+  padding-bottom: 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* ─────────────────────────────────────────────
+   HEADING
+───────────────────────────────────────────── */
+
+.hero-heading {
+  text-align: center;
+  margin-bottom: 70px;
+}
+
+.hero-title {
+  font-size: 1.7rem;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+}
+
+.hero-subtitle {
+  font-style: italic;
+  opacity: 0.75;
+}
+
+/* ─────────────────────────────────────────────
+   CATALOG (FADE SYSTEM)
+───────────────────────────────────────────── */
+
+:root {
+  --card-width: 260px;
+  --card-gap: 100px;
+}
+
+.hero-catalog-wrapper {
+  position: relative;
+  width: 100%;
+  padding: 0 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero-catalog-viewport {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+/* OLD SLIDER TRACK (DISABLED)
+.hero-catalog-track {
+  transform: translateX(...);
+}
+*/
+
+/* NEW FADE GRID */
+.hero-catalog-fade {
+  display: flex;
+  flex-direction: row;
+  flex-wrap:nowrap;
+  gap: 120px;
+  animation: fadeIn 0.1s ease-out;
+}
+
+/* ─────────────────────────────────────────────
+   FADE ANIMATION
+───────────────────────────────────────────── */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(90px);
+  }
+  to {
+    opacity: 2;
+    transform: translateY(0);
+  }
+}
+
+/* ─────────────────────────────────────────────
+   PRODUCT CARD (UNCHANGED)
+───────────────────────────────────────────── */
+
+.hero-product-card {
+  width: var(--card-width);
+  flex: 0 0 var(--card-width);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  cursor: pointer;
+}
+
+.hero-card-image-wrap {
+  aspect-ratio: 3 / 4;
+}
+
+.hero-card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero-card-name {
+  font-size: 0.9rem;
+}
+.hero-card-info {
+  text-align: left;
+  padding: 0 4px;
+}
+.hero-card-colors {
+  display: flex;
+  gap: 8px;
+  margin-top:6px;
+}
+
+/* ______Image Change ______*/
+
+/* Image stack */
+.hero-card-image-stack {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+}
+
+/* Base image */
+.hero-card-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 0.55s ease, transform 0.55s ease;
+}
+
+/* Primary visible */
+.hero-card-image.primary {
+  opacity: 1;
+  z-index: 1;
+}
+
+/* Hover image hidden */
+.hero-card-image.hover {
+  opacity: 0;
+  z-index: 2;
+}
+
+/* On hover → crossfade */
+.hero-product-card:hover .hero-card-image.primary {
+  opacity: 0;
+  transform: scale(1.02);
+}
+
+.hero-product-card:hover .hero-card-image.hover {
+  opacity: 1;
+  transform: scale(1.04);
+}
+
+.hero-color-swatch {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 1px solid rgba(231, 222, 222, 0.3);
+  background-clip: padding-box;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.hero-color-swatch:hover {
+  transform: scale(1.3);
+  box-shadow: 0 0 0 2px rgba(240, 54, 54, 0.12);
+}
+
+.hero-color-swatch.active {
+  box-shadow: 0 0 0 2px rgba(245, 242, 242, 0.4);
+}
+/* ─────────────────────────────────────────────
+   ARROWS
+───────────────────────────────────────────── */
+
+.hero-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: transparent;
+  border: 1px solid rgba(0,0,0,0.12);
+  cursor: pointer;
+}
+
+.hero-arrow--prev {
+  left: 16px;
+}
+
+.hero-arrow--next {
+  right: 16px;
+}
+
+.hero-arrow.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ─────────────────────────────────────────────
+   RESPONSIVE
+───────────────────────────────────────────── */
+
+@media (max-width: 1100px) {
+  :root {
+    --card-width: 220px;
+    --card-gap: 50px;
+  }
+  .hero-catalog-wrapper{
+    padding: 0 60px;
+  }
+}
+
+@media (max-width: 768px) {
+  :root {
+    --card-width: 180px;
+    --card-gap: 30px;
+  }
+  .hero-catalog-wrapper{
+    padding:0 40px;
+  }
+  .hero-arrow{
+    width: 32px;
+    height: 32px;
+  }
+}

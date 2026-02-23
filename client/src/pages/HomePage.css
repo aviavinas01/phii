@@ -1,0 +1,24 @@
+/* src/pages/HomePage.css */
+
+:root {
+  --navbar-height: 72px; /* ← change to match your actual navbar height */
+}
+
+.home-page {
+  width: 100%;
+  min-height: 100vh;
+}
+
+/* 
+  The CategoryNav sits immediately after the hero section.
+  It is NOT sticky by default — it just flows naturally.
+  If you want it to stick below the fixed navbar while scrolling
+  through the rest of the page, uncomment below:
+*/
+/*
+.home-cat-bar {
+  position: sticky;
+  top: var(--navbar-height);
+  z-index: 100;
+}
+*/

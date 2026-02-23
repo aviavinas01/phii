@@ -1,0 +1,17 @@
+/* 
+  Place your Maison de Artisian font files inside: src/assets/fonts/
+  Then update the src paths below to match your exact filenames.
+  Common formats: .woff2, .woff, .ttf, .otf
+*/
+
+
+/* If your font zip only has ONE file (no bold variant), just use: */
+
+@font-face {
+  font-family: 'MaisonDeArtisian','Abramo';
+  src: url('./fonts/AbramoScript.ttf') format('truetype'),
+       url('./fonts/MaisonDeArtisan.otf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}

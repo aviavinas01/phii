@@ -1,65 +1,30 @@
+<<<<<<< HEAD
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Layout from './components/Layout';
 import HomePage from './pages/Home';
 import './App.css';
+=======
+// src/App.jsx
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import HomePage from './pages/HomePage';
+import Navbar from './components/Navbar/Navbar';
+>>>>>>> 7cc0d3e (New Update)
 
-// Placeholder pages for other routes
-const OffersPage = () => (
-  <div className="page-wrapper">
-    <div className="page-container">
-      <h1>Special Offers</h1>
-      <p>All your offers and deals will be displayed here</p>
-    </div>
-  </div>
-);
-
-const BundlesPage = () => (
-  <div className="page-wrapper">
-    <div className="page-container">
-      <h1>Product Bundles</h1>
-      <p>Bundle offers will be shown here</p>
-    </div>
-  </div>
-);
-
-const LikesPage = () => (
-  <div className="page-wrapper">
-    <div className="page-container">
-      <h1>My Likes</h1>
-      <p>Your liked/favorited products will appear here</p>
-    </div>
-  </div>
-);
-
-const NewsPage = () => (
-  <div className="page-wrapper">
-    <div className="page-container">
-      <h1>News & Updates</h1>
-      <p>Latest news and product updates</p>
-    </div>
-  </div>
-);
-
-const ProfilePage = () => (
-  <div className="page-wrapper">
-    <div className="page-container">
-      <h1>My Profile</h1>
-      <p>User profile and account settings</p>
-    </div>
-  </div>
-);
-
-const CategoryPage = () => {
-  const categoryId = window.location.pathname.split('/')[2];
+export default function App() {
   return (
-    <div className="page-wrapper">
-      <div className="page-container">
-        <h1>{categoryId.charAt(0).toUpperCase() + categoryId.slice(1)}</h1>
-        <p>Products in this category will be displayed here</p>
-      </div>
-    </div>
+    <BrowserRouter>
+      <Navbar/>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/product/:slug" element={<div>Product page coming soon</div>} />
+        <Route path="/category/:cat" element={<div>Category page coming soon</div>} />
+        <Route path="/category/:cat/:sub" element={<div>Subcategory page coming soon</div>} />
+      </Routes>
+  
+    </BrowserRouter>
   );
+<<<<<<< HEAD
 };
 
 const SearchPage = () => {
@@ -96,3 +61,6 @@ function App() {
 }
 
 export default App;
+=======
+}
+>>>>>>> 7cc0d3e (New Update)
