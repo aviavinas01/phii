@@ -268,8 +268,30 @@
   .hero-catalog-wrapper{
     padding:0 40px;
   }
+  .hero-catalog-fade{
+    gap:0;
+  }
+  .hero-catalog-viewport{
+    justify-content: center;
+  }
+  .hero-product-card{
+      width: 100%;
+      max-width:320px;
+  }
+  .hero-card-info{
+    text-align: center;
+  }
+  .hero-card-colors{
+    justify-content: center;
+  }
   .hero-arrow{
     width: 32px;
     height: 32px;
+  }
+  .hero-arrow--next{
+    right: 8px;
+  }
+  .hero-arrow--next{
+    right: 8px;
   }
 }

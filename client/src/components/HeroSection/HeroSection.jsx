@@ -22,7 +22,7 @@ import './HeroSection.css';
 const NEW_ARRIVALS = [
   {
     id: 1,
-    name: 'Asymmetric Cape Coat',
+    name: 'High-Rise Faux Leather Trousers',
     image: test1,
     hoverImage: test1_alt,
     colors: ['#c8bca8', '#1a1a1a', '#8b6f5e'],
@@ -30,7 +30,7 @@ const NEW_ARRIVALS = [
   },
   {
     id: 2,
-    name: 'Wide-Leg Suit Set',
+    name: 'Asymmetric Cape Coat',
     image: test2,
     hoverImage: test2_alt,
     colors: ['#b5a898', '#d4c8b8'],
@@ -46,7 +46,7 @@ const NEW_ARRIVALS = [
   },
   {
     id: 4,
-    name: 'High-Rise Faux Leather Trousers',
+    name: 'Wide-Leg Suit Set',
     image: test4,
     hoverImage: test4_alt,
     colors: ['#1a1a1a'],
@@ -136,20 +136,28 @@ function ProductCard({ product }) {
 ───────────────────────────────────────────── */
 
 export default function HeroSection() {
-  /* OLD SLIDING STATE (REMOVED)
-  const [offset, setOffset] = useState(0);
-  */
 
-  /* NEW PAGED FADE STATE */
   const [page, setPage] = useState(0);
+  const [cardsPerView, setCardsPerView] = useState(
+    window.innerWidth < 600 ? 1 : window.innerWidth <= 768 ? 1 : 4
+  );
 
-  const maxPage =
-    Math.ceil(NEW_ARRIVALS.length / CARDS_PER_VIEW) - 1;
+  useState(() => {
+    const handleResize = () => {
+      setCardsPerView(window.innerWidth <= 768 ? 1 : 4);
+      setPage(0);
+    };
 
-  const startIndex = page * CARDS_PER_VIEW;
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const maxPage =Math.ceil(NEW_ARRIVALS.length / cardsPerView) - 1;
+
+  const startIndex = page * cardsPerView;
   const visibleProducts = NEW_ARRIVALS.slice(
     startIndex,
-    startIndex + CARDS_PER_VIEW
+    startIndex + cardsPerView
   );
 
   const nextPage = () => setPage((p) => Math.min(p + 1, maxPage));
