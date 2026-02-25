@@ -1,7 +1,7 @@
 // src/components/MainVideo/MainVideo.jsx
 import './Mainvideo.css';
 // Adjust this path to point to where your video actually is
-import promoVideo from '../../assets/videos/HomeVideo.mp4'; 
+import promoVideo from '../../assets/Videos/HomeVideo.mp4'; 
 
 export default function MainVideo() {
   return (
