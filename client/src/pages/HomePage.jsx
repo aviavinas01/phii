@@ -12,10 +12,6 @@ export default function HomePage() {
 
       <HeroSection />
 
-      <div className="home-cat-bar">
-        <CategoryNav />
-      </div>
-
       {/* Future sections (featured, trending, etc.) go here */}
     </div>
   );
