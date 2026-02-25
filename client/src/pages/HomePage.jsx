@@ -1,7 +1,7 @@
 // src/pages/HomePage.jsx
 import HeroSection from '../components/HeroSection/HeroSection';
 import MainVideo from '../components/MainVideo/MainVideo';
-import CategoryNav from '../components/CategoryNav/CategoryNav';
+import PortfolioSection from '../components/Portfolio/PortfolioSection';
 import './HomePage.css';
 
 export default function HomePage() {
@@ -11,6 +11,8 @@ export default function HomePage() {
       <MainVideo />
 
       <HeroSection />
+
+      <PortfolioSection />
 
       {/* Future sections (featured, trending, etc.) go here */}
     </div>

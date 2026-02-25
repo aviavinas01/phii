@@ -1,0 +1,192 @@
+/* ─────────────────────────────────────────────
+   PORTFOLIO WRAPPER & HEADER
+───────────────────────────────────────────── */
+.portfolio-section {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 100px 40px;
+  background-color: #ffffff;
+}
+
+.portfolio-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 50px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  padding-bottom: 20px;
+}
+
+.portfolio-header-left {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.portfolio-eyebrow {
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  color: #8b8989;
+  text-transform: uppercase;
+}
+
+.portfolio-title {
+  font-size: 3rem;
+  font-weight: 400;
+  color: #1a1a1a;
+  margin: 0;
+  /* Use your custom font here if you have one applied to logos/headings */
+}
+
+.portfolio-view-all {
+  background: transparent;
+  border: none;
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  color: #8b8989;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.portfolio-view-all:hover {
+  color: #1a1a1a;
+}
+
+/* ─────────────────────────────────────────────
+   THE ASYMMETRICAL GRID
+───────────────────────────────────────────── */
+.portfolio-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 30px;
+}
+
+/* Base card setup */
+.portfolio-card {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  
+  /* Start hidden and pushed down for the scroll animation */
+  opacity: 0;
+  transform: translateY(60px);
+  /* Cubic-bezier gives it that expensive, smooth "glide" feeling */
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
+              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* When the JS intersection observer adds this class, it slides into place */
+.portfolio-card.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Hover effect on the image */
+.portfolio-card:hover .portfolio-img {
+  transform: scale(1.05);
+}
+
+/* --- Specific Grid Placements --- */
+
+/* Left column, spans two rows tall */
+.item-bridal {
+  grid-column: 1 / 2;
+  grid-row: 1 / 3;
+  height: 100%;
+}
+
+/* Right column, top row */
+.item-modern {
+  grid-column: 2 / 3;
+  grid-row: 1 / 2;
+  aspect-ratio: 4 / 5;
+}
+
+/* Right column, bottom row */
+.item-traditional {
+  grid-column: 2 / 3;
+  grid-row: 2 / 3;
+  aspect-ratio: 4 / 5;
+}
+
+/* Bottom section, full width */
+.item-avant {
+  grid-column: 1 / -1;
+  grid-row: 3 / 4;
+  aspect-ratio: 21 / 9; /* Wide cinematic ratio */
+  margin-top: 30px;
+}
+
+/* ─────────────────────────────────────────────
+   IMAGES & TEXT OVERLAYS
+───────────────────────────────────────────── */
+.portfolio-image-wrapper {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.portfolio-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 15%;
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* A subtle gradient at the bottom so white text is always readable */
+.portfolio-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0) 40%);
+  pointer-events: none;
+}
+
+.portfolio-text {
+  position: absolute;
+  bottom: 30px;
+  left: 30px;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  color: white;
+}
+
+.portfolio-cat-subtitle {
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  opacity: 0.8;
+}
+
+.portfolio-cat-title {
+  font-size: 2rem;
+  font-weight: 400;
+  margin: 0;
+}
+
+/* ─────────────────────────────────────────────
+   RESPONSIVE (MOBILE)
+───────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .portfolio-grid {
+    grid-template-columns: 1fr; /* Stack everything into one column */
+    grid-gap: 20px;
+  }
+  
+  /* Reset all grid placements so they stack naturally */
+  .item-bridal, .item-modern, .item-traditional, .item-avant {
+    grid-column: 1 / -1;
+    grid-row: auto;
+    aspect-ratio: 3 / 4; /* Make them all uniform on mobile */
+    margin-top: 0;
+  }
+
+  .portfolio-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+}

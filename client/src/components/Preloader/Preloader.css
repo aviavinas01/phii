@@ -1,0 +1,43 @@
+/* src/components/Preloader/Preloader.css */
+
+.preloader-wrapper {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #ffffff; /* Crisp white background */
+  z-index: 999999; /* Sits above absolutely everything */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* The exit animation setup */
+  transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.preloader-logo {
+  font-family: "League Script", cursive;
+  font-size: 4rem;
+  color: #1a1a1a;
+  /* The smooth luxury breathing animation */
+  animation: luxuryPulse 2s infinite ease-in-out;
+}
+
+@keyframes luxuryPulse {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(0.95);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+}
+
+/* ─────────────────────────────────────────────
+   THE BURST EXIT
+───────────────────────────────────────────── */
+.preloader-wrapper.burst-out {
+  opacity: 0;
+  transform: scale(1.15); /* Scales up slightly as it fades, giving a "burst" reveal */
+  pointer-events: none; /* Instantly allows clicking through to the site */
+}

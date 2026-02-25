@@ -1,0 +1,128 @@
+/* src/components/Footer/Footer.css */
+
+.luxury-footer {
+  background-color: #ffffff; /* Deep charcoal/black */
+  color: #fcf6f0; /* Muted grey for body text */
+  padding: 80px 60px 30px 60px;
+  font-family: 'Helvetica Neue', Arial, sans-serif; /* Clean sans-serif */
+  width: 100%;
+}
+
+.footer-top {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 80px;
+  max-width: 1400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.footer-col {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.brand-col {
+  max-width: 400px;
+}
+
+/* Matching that elegant serif logo */
+.footer-logo {
+  font-family: "League Script", serif; /* Or whatever serif you prefer */
+  font-size: 2.2rem;
+  font-weight: 400;
+  color: #c2b4a3; /* Muted champagne gold */
+  margin: 0 0 10px 0;
+  letter-spacing: 0.1em;
+}
+
+.footer-desc {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin: 0;
+  color: #3e3e3eb8;
+}
+
+.footer-heading {
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  color: #4c4c4c;
+  text-transform: uppercase;
+  margin: 0 0 10px 0;
+  font-weight: 500;
+}
+
+.footer-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.footer-list a {
+  color: #c2b4a3; /* Gold links */
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: opacity 0.3s ease;
+}
+
+.footer-list a:hover {
+  opacity: 0.7;
+}
+
+/* ─────────────────────────────────────────────
+   BOTTOM SECTION (Divider & Copyright)
+───────────────────────────────────────────── */
+.footer-bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.08); /* Subtle divider line */
+  padding-top: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1400px;
+  margin: 0 auto;
+  font-size: 0.85rem;
+}
+
+.copyright {
+  margin: 0;
+  color: #777777;
+}
+
+.legal-links {
+  display: flex;
+  gap: 30px;
+}
+
+.legal-links a {
+  color: #777777;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.legal-links a:hover {
+  color: #e5d0b3;
+}
+
+/* ─────────────────────────────────────────────
+   RESPONSIVE LAYOUT
+───────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .luxury-footer {
+    padding: 60px 30px 30px 30px;
+  }
+  
+  .footer-top {
+    flex-direction: column;
+    gap: 50px;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+}

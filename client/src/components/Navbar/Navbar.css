@@ -4,17 +4,62 @@
   --card-gap: 28px;
 }
 .div3 {
-  padding: 0px 45px 50px 45px;
+  padding: 10px 45px 50px 45px;
   width: 100%;
-  height: 50px;
+  height: 60px;
   top:0;
   left:0;
   position: fixed;
   z-index: 1000;
   color:rgba(237, 18, 18, 0.396);
-  background: transparent;
   border-bottom: none;
-  transition: all 0.3s ease-in-out;
+  transition: all 0.4s ease-in-out;
+}
+/* ─────────────────────────────────────────────
+   ZONE 1: Over the Dark Video 
+───────────────────────────────────────────── */
+.div3.theme-video {
+  background: transparent; 
+  color: #dfdbdb; /* Light gray/white text */
+}
+
+/* ─────────────────────────────────────────────
+   ZONE 2: Over the White Hero Section
+───────────────────────────────────────────── */
+.div3.theme-hero {
+  background: transparent; 
+  color: #1a1a1a; /* Black text so it's visible on white */
+}
+.div3.theme-hero .nav-item:hover {
+  background: rgba(0, 0, 0, 0.05); /* Darker hover effect for white background */
+}
+
+/* ─────────────────────────────────────────────
+   ZONE 3: Over the Portfolio & Beyond
+───────────────────────────────────────────── */
+.div3.theme-portfolio {
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+  color: #c2b4a3; /* Black text */
+}
+.div3.theme-portfolio .nav-item:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+/* Make sure the search text matches the theme */
+.search-input {
+  border: none;
+  background: transparent;
+  outline: none;
+  width: 220px;
+  color: inherit; 
+}
+
+/* Make sure the search placeholder text adjusts slightly */
+.search-input::placeholder {
+  color: inherit;
+  opacity: 0.6;
 }
 
 .div3.solid-nav{
@@ -52,6 +97,58 @@
 .logo {
   cursor: pointer;
 }
+
+/* ─────────────────────────────────────────────
+   NEW SLIDING SEARCH STYLES
+───────────────────────────────────────────── */
+.search-expandable-container {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+/* The wrapper that hides and reveals the input */
+.search-slide-wrapper {
+  display: flex;
+  align-items: center;
+  overflow: hidden; /* Hides the input when width is 0 */
+  
+  /* Initial Closed State */
+  width: 0;
+  opacity: 0;
+  margin-right: 0;
+  
+  /* The sliding animation magic */
+  transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
+              opacity 0.3s ease,
+              margin-right 0.3s ease;
+  
+  /* Optional: gives it a subtle pill shape background so it's readable over images */
+  background: rgba(150, 150, 150, 0.15);
+  border-radius: 20px;
+}
+
+/* The Open State (triggered by React state) */
+.search-slide-wrapper.open {
+  width: 200px; /* How wide it opens */
+  opacity: 1;
+  padding: 6px 14px;
+  margin-right: 4px; /* Space between input and the magnifying glass icon */
+}
+
+.search-input-slide {
+  border: none;
+  background: transparent;
+  outline: none;
+  width: 100%;
+  color: inherit; /* Matches your black/white scroll themes */
+  font-size: 0.9rem;
+}
+
+.search-input-slide::placeholder {
+  color: inherit;
+  opacity: 0.6;
+}
 .search-container {
   display: flex;
   align-items: center;
@@ -83,9 +180,19 @@
   background: transparent;
   border: none;
   cursor: pointer;
-  padding: 4px;
+  padding: 0;
+  margin-left: 8px;
   display: flex;
   align-items: center;
+  color:inherit;
+  opacity:0.7;
+}
+.clear-search:hover {
+  opacity:1;
+}
+.clear-search svg {
+  width: 16px;
+  height: 16px;
 }
 
 .navbar-right {
