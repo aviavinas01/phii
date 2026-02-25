@@ -1,8 +1,8 @@
 // src/components/HeroSection/HeroSection.jsx
 
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import heroImage from '../../assets/HeroImage.png';
+import heroImage from '../../assets/MainHero.png';
 
 import test1 from '../../assets/Images/product/women/test1.png';
 import test2 from '../../assets/Images/product/women/test2.png';
@@ -136,76 +136,95 @@ function ProductCard({ product }) {
 ───────────────────────────────────────────── */
 
 export default function HeroSection() {
+const containerRef = useRef(null);
+  const [scrollProgress, setScrollProgress] = useState(0);
 
-  const [page, setPage] = useState(0);
-  const [cardsPerView, setCardsPerView] = useState(
-    window.innerWidth < 600 ? 1 : window.innerWidth <= 768 ? 1 : 4
-  );
+  const displayProducts = [...NEW_ARRIVALS, ...NEW_ARRIVALS, ...NEW_ARRIVALS];
 
-  useState(() => {
-    const handleResize = () => {
-      setCardsPerView(window.innerWidth <= 768 ? 1 : 4);
-      setPage(0);
+  const col1 = displayProducts.filter((_, i) => i % 4 === 0);
+  const col2 = displayProducts.filter((_, i) => i % 4 === 1);
+  const col3 = displayProducts.filter((_, i) => i % 4 === 2);
+  const col4 = displayProducts.filter((_, i) => i % 4 === 3);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!containerRef.current) return;
+      
+      const rect = containerRef.current.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+      
+      const maxScroll = rect.height - windowHeight;
+      let scrolled = -rect.top;
+
+      if (scrolled < 0) scrolled = 0;
+      if (scrolled > maxScroll) scrolled = maxScroll;
+
+      const progress = scrolled / maxScroll;
+      setScrollProgress(progress);
     };
 
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll(); 
+    
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const maxPage =Math.ceil(NEW_ARRIVALS.length / cardsPerView) - 1;
-
-  const startIndex = page * cardsPerView;
-  const visibleProducts = NEW_ARRIVALS.slice(
-    startIndex,
-    startIndex + cardsPerView
-  );
-
-  const nextPage = () => setPage((p) => Math.min(p + 1, maxPage));
-  const prevPage = () => setPage((p) => Math.max(p - 1, 0));
+  // Math to move the columns. 
+  // 'Up' columns start at 0% and move to -50% of their height.
+  // 'Down' columns start at -50% of their height and move to 0%.
+  const transformUp = `translateY(-${scrollProgress * 50}%)`;
+  const transformDown = `translateY(-${50 - scrollProgress * 50}%)`;
 
   return (
-    <section className="hero-section">
-      <div
-        className="hero-bg"
-        aria-hidden="true"
-        style={{ backgroundImage: `url(${heroImage})` }}
-      />
+    <section ref={containerRef} className="hero-scroll-container">
+      {/* This element sticks to the screen */}
+      <div className="hero-sticky-viewport">
+        
+        {/* Background Image */}
+        <div
+          className="hero-bg"
+          aria-hidden="true"
+          style={{ backgroundImage: `url(${heroImage})` }}
+        />
 
-      <div className="hero-content">
-        <div className="hero-heading">
-          <h1 className="hero-title">New Arrivals</h1>
-          <span className="hero-subtitle">Shop now</span>
-        </div>
+        <div className="hero-content">
+          {/*}
+          <div className="hero-heading">
+            <h1 className="hero-title">New Arrivals</h1>
+            <span className="hero-subtitle">Scroll to explore</span>
+          </div>*/}
 
-        <div className="hero-catalog-wrapper">
-          {/* PREV */}
-          <button
-            className={`hero-arrow hero-arrow--prev ${
-              page === 0 ? 'hidden' : ''
-            }`}
-            onClick={prevPage}
-          >
-            &#8592;
-          </button>
-
-          {/* FADE CONTAINER */}
-          <div className="hero-catalog-viewport">
-            <div key={page} className="hero-catalog-fade">
-              {visibleProducts.map((product) => (
-                <ProductCard key={product.id} product={product} />
+          <div className="hero-parallax-wrapper">
+            
+            {/* COLUMN 1: SCROLLS UP */}
+            <div className="hero-column" style={{ transform: transformUp }}>
+              {col1.map((product, idx) => (
+                <ProductCard key={`${product.id}-${idx}-c1`} product={product} />
               ))}
             </div>
-          </div>
 
-          {/* NEXT */}
-          <button
-            className={`hero-arrow hero-arrow--next ${
-              page === maxPage ? 'hidden' : ''
-            }`}
-            onClick={nextPage}
-          >
-            &#8594;
-          </button>
+            {/* COLUMN 2: SCROLLS DOWN */}
+            <div className="hero-column" style={{ transform: transformDown }}>
+              {col2.map((product, idx) => (
+                <ProductCard key={`${product.id}-${idx}-c2`} product={product} />
+              ))}
+            </div>
+
+            {/* COLUMN 3: SCROLLS UP */}
+            <div className="hero-column" style={{ transform: transformUp }}>
+              {col3.map((product, idx) => (
+                <ProductCard key={`${product.id}-${idx}-c3`} product={product} />
+              ))}
+            </div>
+
+            {/* COLUMN 4: SCROLLS DOWN */}
+            <div className="hero-column" style={{ transform: transformDown }}>
+              {col4.map((product, idx) => (
+                <ProductCard key={`${product.id}-${idx}-c4`} product={product} />
+              ))}
+            </div>
+
+          </div>
         </div>
       </div>
     </section>

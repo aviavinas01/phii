@@ -9,16 +9,22 @@ const Navbar = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const isHomePage = location.pathname === '/';
 
-  useEffect(() => {
+useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 50) {
+      const triggerPoint = window.innerHeight * 3;
+      const currentScrollY = window.scrollY;
+
+    
+      if (currentScrollY > triggerPoint) {
         setIsScrolled(true);
       } else {
         setIsScrolled(false);
-      } 
+      }
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+    
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
   const useTransparentNav = isHomePage && !isScrolled;
@@ -40,7 +46,7 @@ const Navbar = () => {
       <nav className="top-navbar">
         <div className="navbar-left">
           <div className="logo" onClick={() => handleNavigation('/')}>
-            <span className="logo-text">Phii</span>
+            <span className="logo-text">opihage</span>
           </div>
 
           <form className="search-container" onSubmit={handleSearch}>
@@ -91,7 +97,7 @@ const Navbar = () => {
               <circle cx="18" cy="8" r="3" fill="#FF6B6B" stroke="white" strokeWidth="2"/>
               <text x="18" y="9.5" fontSize="6" fill="white" textAnchor="middle" fontWeight="bold">₹</text>
             </svg>
-            <span className="nav-label">Offers</span>
+            <span className="nav-label"></span>
           </button>
 
           {/* Bundles */}
@@ -104,7 +110,7 @@ const Navbar = () => {
               <line x1="3" y1="6" x2="21" y2="6" strokeWidth="1.5" strokeLinecap="round"/>
               <path d="M16 10a4 4 0 0 1-8 0" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
-            <span className="nav-label">Bundles</span>
+            <span className="nav-label"></span>
           </button>
 
           {/* My Likes */}
@@ -115,7 +121,7 @@ const Navbar = () => {
             <svg className="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
               <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
-            <span className="nav-label">My Likes</span>
+            <span className="nav-label"></span>
           </button>
 
           {/* News */}
@@ -129,7 +135,7 @@ const Navbar = () => {
               <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
               <circle cx="12" cy="7" r="4" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
-            <span className="nav-label">Profile</span>
+            <span className="nav-label"></span>
           </button>
         </div>
       </nav>

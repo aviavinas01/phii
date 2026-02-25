@@ -4,9 +4,9 @@
   --card-gap: 28px;
 }
 .div3 {
-  padding:0 45px 50px 45px;
+  padding: 0px 45px 50px 45px;
   width: 100%;
-  height: 60px;
+  height: 50px;
   top:0;
   left:0;
   position: fixed;
@@ -26,7 +26,7 @@
 .div3.transparent-nav {
   background: transparent; 
   border-bottom: none; 
-  color: #8b8989; /* White text for the dark/pink image */
+  color: #dfdbdb; /* White text for the dark/pink image */
 }
 .logo-text{
     font-family: "League Script", cursive;
