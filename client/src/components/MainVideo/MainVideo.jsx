@@ -1,5 +1,5 @@
 // src/components/MainVideo/MainVideo.jsx
-import './MainVideo.css';
+import './Mainvideo.css';
 // Adjust this path to point to where your video actually is
 import promoVideo from '../../assets/videos/HomeVideo.mp4'; 
 
