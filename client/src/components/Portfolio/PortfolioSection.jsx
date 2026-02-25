@@ -19,7 +19,7 @@ const CATEGORIES = [
   },
   {
     id: 'modern',
-    title: 'Modern Silhouette',
+    title: 'Modern Evening',
     subtitle: 'READY TO WEAR',
     image: modernImg,
     path: '/category/modern',
