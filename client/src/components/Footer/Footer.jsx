@@ -1,9 +1,28 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useNavigate} from 'react-router-dom';
+import Gatekeeper from '../Gatekeeper.jsx/Gatekeeper';
+import { supabase } from '../../supabaseClient';
 import './Footer.css';
 
 export default function Footer() {
+  const [showGatekeeper, setShowGatekeeper] = useState(false);
+  const navigate = useNavigate();
+
+  const handleSecretDoubleClick = async () => {
+
+    const { data: { session } } = await supabase.auth.getSession();
+
+    if (session) { 
+      navigate('/admin-dashboard');
+    } else {
+      setShowGatekeeper(true);
+    }
+  };
+
   return (
+    <>
+      {showGatekeeper && <Gatekeeper onClose={() => setShowGatekeeper(false)} />}
+
     <footer className="luxury-footer">
       <div className="footer-top">
         {/* Brand Column */}
@@ -37,12 +56,16 @@ export default function Footer() {
 
       {/* Bottom Legal Section */}
       <div className="footer-bottom">
-        <p className="copyright">© 2026 Aura Studios. All rights reserved.</p>
+        <p className="copyright" 
+          onDoubleClick={handleSecretDoubleClick}
+          style={{ cursor: 'default'}}>
+          © 2026 Aura Studios. All rights reserved.</p>
         <div className="legal-links">
           <Link to="/privacy-policy">Privacy Policy</Link>
           <Link to="/terms">Terms of Service</Link>
         </div>
       </div>
     </footer>
+    </>
   );
 }

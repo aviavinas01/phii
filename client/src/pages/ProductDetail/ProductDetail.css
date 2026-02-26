@@ -1,0 +1,246 @@
+/* src/pages/ProductDetail/ProductDetail.css */
+
+.pdp-wrapper {
+  width: 100%;
+  max-width: 1600px;
+  margin: 0 auto;
+  /* Add top padding so it sits beautifully under your transparent/solid navbar */
+  padding: 100px 40px 80px 40px; 
+  background-color: #ffffff;
+  min-height: 100vh;
+}
+
+/* The 3-Column Layout */
+.pdp-grid {
+  display: grid;
+  /* Left and Middle get equal space, Right gets slightly less */
+  grid-template-columns: 1.2fr 1.2fr 1fr;
+  gap: 30px;
+  align-items: flex-start; /* CRITICAL for position: sticky to work */
+}
+
+/* ─────────────────────────────────────────────
+   THE STICKY MAGIC
+───────────────────────────────────────────── */
+.sticky-col {
+  position: sticky;
+  /* Stops exactly 90px from the top of the screen (clearing your navbar) */
+  top: 90px; 
+  /* Takes up the remaining height of the screen */
+  height: calc(100vh - 120px); 
+  overflow-y: auto; 
+}
+
+/* Hide scrollbars on the sticky columns for a cleaner look */
+.sticky-col::-webkit-scrollbar {
+  display: none;
+}
+.sticky-col {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* ─────────────────────────────────────────────
+   IMAGE COLUMNS
+───────────────────────────────────────────── */
+.pdp-main-image-container {
+  width: 100%;
+  height: 100%;
+  background: #f7f7f7; /* Very subtle grey backing */
+}
+
+.pdp-main-image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.scroll-col {
+  display: flex;
+  flex-direction: column;
+  gap: 30px; /* Space between the scrolling images */
+}
+
+.pdp-gallery-image {
+  width: 100%;
+  background: #f7f7f7;
+}
+
+.pdp-gallery-image img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+/* ─────────────────────────────────────────────
+   RIGHT COLUMN: TYPOGRAPHY & DETAILS
+───────────────────────────────────────────── */
+.pdp-details-container {
+  padding: 0 20px;
+  color: #1a1a1a;
+}
+
+.pdp-brand {
+  font-family: "Times New Roman", Times, serif; /* Or your custom serif */
+  font-size: 2rem;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin: 0 0 10px 0;
+}
+
+.pdp-name {
+  font-size: 1rem;
+  color: #555;
+  margin: 0 0 25px 0;
+}
+
+.pdp-tag {
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  color: #888;
+  margin-bottom: 5px;
+  display: block;
+}
+
+.pdp-price {
+  font-size: 0.95rem;
+  margin: 0 0 25px 0;
+}
+
+.pdp-color {
+  font-size: 0.9rem;
+  margin-bottom: 30px;
+  border-top: 1px solid #eee;
+  padding-top: 20px;
+}
+
+/* Sizing Grid */
+.pdp-size-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.9rem;
+  margin-bottom: 15px;
+}
+
+.pdp-size-guide {
+  background: none;
+  border: none;
+  text-decoration: underline;
+  color: #666;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+
+.pdp-size-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 40px;
+}
+
+.pdp-size-btn {
+  background: transparent;
+  border: 1px solid #e0e0e0;
+  padding: 12px 0;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.85rem;
+}
+
+.pdp-size-btn:hover {
+  border-color: #1a1a1a;
+}
+
+.pdp-size-btn.selected {
+  background: #1a1a1a;
+  color: #fff;
+  border-color: #1a1a1a;
+}
+
+/* Buttons */
+.pdp-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 40px;
+}
+
+.btn-add-bag {
+  background: #1a1a1a;
+  color: #fff;
+  border: none;
+  padding: 16px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.btn-add-bag:hover {
+  background: #333;
+}
+
+.btn-wishlist {
+  background: transparent;
+  color: #1a1a1a;
+  border: 1px solid #1a1a1a;
+  padding: 16px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+}
+
+.btn-wishlist svg {
+  width: 18px;
+  height: 18px;
+}
+
+.btn-wishlist:hover {
+  background: #fafafa;
+}
+
+/* Accordion Notes */
+.pdp-accordion {
+  border-top: 1px solid #eee;
+  padding-top: 20px;
+}
+
+.pdp-accordion-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  margin-bottom: 15px;
+  cursor: pointer;
+}
+
+.pdp-description {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #444;
+}
+
+/* ─────────────────────────────────────────────
+   MOBILE RESPONSIVENESS (Stack it)
+───────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .pdp-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .sticky-col {
+    position: relative;
+    top: 0;
+    height: auto;
+  }
+  
+  .pdp-main-image-container img {
+    height: 70vh; /* Make the main image slightly shorter on mobile */
+  }
+}
