@@ -59,7 +59,7 @@ export default function Footer() {
         <p className="copyright" 
           onDoubleClick={handleSecretDoubleClick}
           style={{ cursor: 'default'}}>
-          © 2026 Aura Studios. All rights reserved.</p>
+          © 2026 opihage. All rights reserved.</p>
         <div className="legal-links">
           <Link to="/privacy-policy">Privacy Policy</Link>
           <Link to="/terms">Terms of Service</Link>
