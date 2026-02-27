@@ -61,25 +61,28 @@
 ───────────────────────────────────────────── */
 
 .hero-heading {
+  position: absolute;
+  top: 12vh;
+  left: 50%;
+  transform: translateX(-50%);
   text-align: center;
   margin-bottom: 70px;
-  background:rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(8px);
-  padding: 10px 40px;
-  border-radius: 50px;
   z-index: 10;
 }
 
 .hero-title {
-  font-size: 1.7rem;
+  font-size: 2.2rem;
   font-weight: 400;
-  letter-spacing: 0.04em;
-  margin: 0;
+  letter-spacing: 0.05em;
+  color: #1a1a1a;
+  margin: 0 0 5px 0;
 }
 
 .hero-subtitle {
   font-style: italic;
-  opacity: 0.75;
+  font-size: 0.9rem;
+  letter-spacing: 0.05em;
+  color: #666;
 }
 
 /* ─────────────────────────────────────────────
@@ -141,8 +144,10 @@
 ───────────────────────────────────────────── */
 
 .hero-product-card {
-  width: var(--card-width);
+  width: 100%;
   flex: 0 0 var(--card-width);
+  flex-shrink: 0;
+  transition: opacity 0.5s ease;
   display: flex;
   flex-direction: column;
   gap: 14px;
@@ -261,30 +266,50 @@
   flex-direction: column;
 }
 
+
 /* ─────────────────────────────────────────────
    PARALLAX COLUMNS
 ───────────────────────────────────────────── */
 :root {
-  --card-width: 240px;
+  --card-width: 180px;
 }
 
 .hero-parallax-wrapper {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(4, var(--card-width));
   justify-content: center;
-  gap: 3vw; /* Spaces out the 4 columns */
+  gap: 5vw; 
   width: 100%;
-  padding: 0 40px;
-  flex-grow: 1;
-  /* Push it slightly off center for visual interest */
-  margin-top: -5vh; 
+  max-width: 1400px;
+  height: 100vh;
+  align-items: flex-start;
+  padding-top: 20vh;
+  position: relative;
+  z-index: 2;
+  margin: 0 auto; 
 }
+
 .hero-column{
   display: flex;
   flex-direction: column;
-  gap: 60px;
-  width: var(--card-width);
-  will-change: transform;
+  gap: 40vh;
+  width: 100%;
+ position: relative;
+ will-change: transform;
 }
+
+.hero-column.col-down .hero-product-card:not(:first-child) {
+  position: absolute;
+  left: 0;
+  width: 100%;
+}
+
+/* Calculate the exact height to stack them above the screen */
+.hero-column.col-down .hero-product-card:nth-child(2) { bottom: calc(100% + 40vh); }
+.hero-column.col-down .hero-product-card:nth-child(3) { bottom: calc(200% + 80vh); }
+.hero-column.col-down .hero-product-card:nth-child(4) { bottom: calc(300% + 120vh); }
+.hero-column.col-down .hero-product-card:nth-child(5) { bottom: calc(400% + 160vh); }
+
 
 /* ─────────────────────────────────────────────
    RESPONSIVE

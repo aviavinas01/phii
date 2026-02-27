@@ -17,15 +17,8 @@ export default function MainVideo() {
       
       <div className="main-video-overlay">
         <div className="main-video-text">
-          <h1>Elevated Form</h1>
-          <p>A curated portfolio of modern, <br></br>
-             bridal, and traditional fashion designs <br></br>
-             exploring the intersection of fabric and architecture.</p>
-          
-            <button className="main-video-button">
-                <span>View Collection</span>
-            </button>
-          
+          <h1>Form & Fabric</h1>
+          <p>Bridal and evening wear built on traditional techniques and modern shapes.</p> 
         </div>
       </div>
     </section>

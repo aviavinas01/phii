@@ -10,6 +10,36 @@ export default function AdminDashboard() {
   const [message, setMessage] = useState('');
   const [products, setProducts] = useState([]);
   const [loadingInventory, setLoadingInventory] = useState(false);
+  const [sideImages, setSideImages] = useState([]);
+  const [orders, setOrders] = useState([]);
+  const [mainFile, setMainFile] = useState(null);
+
+    const [formData, setFormData] = useState({
+    name: '',
+    slug: '',
+    price: '',
+    originalPrice: '',
+    color: '',
+    category: 'modern',
+    description: '',
+    sizes: 'FR 34, FR 36, FR 38', // We'll split this by comma later
+  });
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+  const fetchOrders = async () => {
+    // We fetch the orders AND the items inside them in one go!
+    const { data, error } = await supabase
+      .from('orders')
+      .select(`
+        *,
+        order_items (*)
+      `)
+      .order('created_at', { ascending: false });
+
+    if (!error) setOrders(data);
+  };
 
   useEffect(() => {
     const fetchInventory = async () => {
@@ -31,85 +61,115 @@ export default function AdminDashboard() {
     }
   }, [activeTab]);
 
-  // Form State
-  const [formData, setFormData] = useState({
-    name: '',
-    slug: '',
-    price: '',
-    originalPrice: '',
-    color: '',
-    category: 'modern',
-    description: '',
-    sizes: 'FR 34, FR 36, FR 38', // We'll split this by comma later
-  });
-
-  const [mainFile, setMainFile] = useState(null);
-
-  // Handle Logout
   const handleLogout = async () => {
     await supabase.auth.signOut();
     navigate('/');
   };
 
-  // Handle Form Inputs
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+  const toggleHeroStatus = async (e, productId, currentStatus) => {
+    e.stopPropagation(); // Stops the card from clicking through to the Product Detail page
+
+    // Instantly update the UI so it feels lightning fast (Optimistic UI)
+    const newStatus = !currentStatus;
+    setProducts(products.map(p => p.id === productId ? { ...p, is_hero: newStatus } : p));
+
+    // Update the database securely in the background
+    const { error } = await supabase
+      .from('products')
+      .update({ is_hero: newStatus })
+      .eq('id', productId);
+
+    if (error) {
+      console.error("Error updating Hero status:", error);
+      alert("Failed to update status. Please try again.");
+      // If it fails, refresh the inventory to show the true database state
+      const { data } = await supabase.from('products').select('*').order('created_at', { ascending: false });
+      setProducts(data);
+    }
   };
 
-  // THE UPLOAD ENGINE
+  // Handle Form Inputs
+  const handleGalleryChange = (e) => {
+    const files = Array.from(e.target.files);
+  if (files.length < 3 || files.length > 5) {
+    alert("Please upload between 3 and 5 side images for the gallery.");
+    return;
+  }
+  setSideImages(files);
+};
+
+// THE UPLOAD ENGINE: Upgraded for Multi-Image
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    setMessage('Uploading image to secure vault...');
+    setMessage('Accessing vault...');
 
     try {
       if (!mainFile) throw new Error('You must select a main image.');
+      if (sideImages.length < 3) throw new Error('Please select at least 3 gallery images.');
 
-      // 1. Upload the image to Supabase Storage Bucket
-      const fileExt = mainFile.name.split('.').pop();
-      const fileName = `${Date.now()}-${Math.random().toString(36).substring(7)}.${fileExt}`;
-      
-      const { error: uploadError } = await supabase.storage
+      // --- UPLOAD MAIN IMAGE ---
+      const mainExt = mainFile.name.split('.').pop();
+      const mainName = `main-${Date.now()}.${mainExt}`;
+      const { error: mainError } = await supabase.storage
         .from('opihage-assets')
-        .upload(fileName, mainFile);
+        .upload(mainName, mainFile);
+      if (mainError) throw mainError;
 
-      if (uploadError) throw uploadError;
-
-      // 2. Get the public URL for the image we just uploaded
-      const { data: { publicUrl } } = supabase.storage
+      const { data: { publicUrl: mainUrl } } = supabase.storage
         .from('opihage-assets')
-        .getPublicUrl(fileName);
+        .getPublicUrl(mainName);
 
-      setMessage('Image uploaded. Saving to database...');
+      // - UPLOAD GALLERY IMAGES -
+      setMessage('Uploading gallery pieces (this may take a moment)...');
+      const galleryUrls = [];
 
-      // 3. Save the product data + the image URL to the Database
+      for (const file of sideImages) {
+        const ext = file.name.split('.').pop();
+        const name = `gallery/${Date.now()}-${Math.random().toString(36).substring(7)}.${ext}`;
+        
+        const { error: gError } = await supabase.storage
+          .from('opihage-assets')
+          .upload(name, file);
+        
+        if (gError) throw gError;
+
+        const { data: { publicUrl: gUrl } } = supabase.storage
+          .from('opihage-assets')
+          .getPublicUrl(name);
+        
+        galleryUrls.push(gUrl);
+      }
+
+      // --- C. SAVE TO DATABASE ---
+      setMessage('Cataloging product in database...');
       const { error: dbError } = await supabase
         .from('products')
         .insert([
           {
             name: formData.name,
-            slug: formData.slug.toLowerCase().replace(/\s+/g, '-'), // Auto-format slug
+            slug: formData.slug.toLowerCase().replace(/\s+/g, '-'),
             price: parseFloat(formData.price),
             original_price: formData.originalPrice ? parseFloat(formData.originalPrice) : null,
             color: formData.color,
             category: formData.category,
             description: formData.description,
-            sizes: formData.sizes.split(',').map(s => s.trim()), // Convert "S, M, L" to array ["S", "M", "L"]
-            main_image: publicUrl,
+            sizes: formData.sizes.split(',').map(s => s.trim()),
+            main_image: mainUrl,
+            gallery_images: galleryUrls, // <--- The new column we added!
             is_published: true
           }
         ]);
 
       if (dbError) throw dbError;
 
-      setMessage('Product successfully published!');
+      setMessage('Product successfully published to showroom!');
       
-      // Reset form after success
+      // Reset
       setTimeout(() => {
         setMessage('');
-        setFormData({ name: '', slug: '', price: '', originalPrice: '', color: '', category: 'modern', description: '', sizes: '' });
-        setMainFile(null);
-      }, 3000);
+        setActiveTab('inventory'); // Take them back to inventory to see it
+      }, 2000);
 
     } catch (error) {
       console.error(error);
@@ -121,29 +181,18 @@ export default function AdminDashboard() {
 
   return (
     <div className="admin-layout">
-      {/* SIDEBAR */}
       <aside className="admin-sidebar">
-        <div className="admin-brand">
-          <span>ADMIN</span>
-        </div>
+        <div className="admin-brand"><span>ADMIN</span></div>
         <nav className="admin-nav">
-          <button 
-            className={activeTab === 'inventory' ? 'active' : ''} 
-            onClick={() => setActiveTab('inventory')}
-          >
-            Inventory
-          </button>
-          <button 
-            className={activeTab === 'add' ? 'active' : ''} 
-            onClick={() => setActiveTab('add')}
-          >
-            + Add Product
+          <button className={activeTab === 'inventory' ? 'active' : ''} onClick={() => setActiveTab('inventory')}>Inventory</button>
+          <button className={activeTab === 'add' ? 'active' : ''} onClick={() => setActiveTab('add')}>+ Add Product</button>
+          <button className={activeTab === 'orders' ? 'active' : ''} onClick={() => setActiveTab('orders')}>
+          Orders ({orders.length})
           </button>
         </nav>
         <button className="admin-logout" onClick={handleLogout}>LOGOUT</button>
       </aside>
 
-      {/* MAIN CONTENT AREA */}
       <main className="admin-main">
         <header className="admin-header">
           <h1>{activeTab === 'add' ? 'Create New Product' : 'Inventory Management'}</h1>
@@ -159,7 +208,7 @@ export default function AdminDashboard() {
                   <input type="text" name="name" value={formData.name} onChange={handleChange} required />
                 </div>
                 <div className="form-group">
-                  <label>URL Slug (e.g. leather-jacket)</label>
+                  <label>URL Slug</label>
                   <input type="text" name="slug" value={formData.slug} onChange={handleChange} required />
                 </div>
               </div>
@@ -170,7 +219,7 @@ export default function AdminDashboard() {
                   <input type="number" name="price" value={formData.price} onChange={handleChange} required />
                 </div>
                 <div className="form-group">
-                  <label>Original Price (Optional Strike-through)</label>
+                  <label>Original Price (Optional)</label>
                   <input type="number" name="originalPrice" value={formData.originalPrice} onChange={handleChange} />
                 </div>
               </div>
@@ -192,7 +241,7 @@ export default function AdminDashboard() {
               </div>
 
               <div className="form-group">
-                <label>Sizes (Comma separated: FR 34, FR 36)</label>
+                <label>Sizes (Comma separated)</label>
                 <input type="text" name="sizes" value={formData.sizes} onChange={handleChange} required />
               </div>
 
@@ -201,9 +250,23 @@ export default function AdminDashboard() {
                 <textarea name="description" value={formData.description} onChange={handleChange} rows="4" required />
               </div>
 
-              <div className="form-group file-upload">
-                <label>Main Product Image</label>
-                <input type="file" accept="image/*" onChange={(e) => setMainFile(e.target.files[0])} required />
+              {/* UPDATED FILE INPUTS */}
+              <div className="form-row">
+                <div className="form-group file-upload">
+                  <label>Main Image (Portrait)</label>
+                  <input type="file" accept="image/*" onChange={(e) => setMainFile(e.target.files[0])} required />
+                </div>
+                <div className="form-group file-upload">
+                  <label>Gallery (Select 3-5 images)</label>
+                  <input 
+                    type="file" 
+                    accept="image/*" 
+                    multiple 
+                    onChange={(e) => setSideImages(Array.from(e.target.files))} 
+                    required 
+                  />
+                  <small style={{color: '#666', fontSize: '0.7rem'}}>Selected: {sideImages.length} files</small>
+                </div>
               </div>
 
               {message && <div className={`admin-status ${message.includes('Error') ? 'error' : 'success'}`}>{message}</div>}
@@ -225,11 +288,10 @@ export default function AdminDashboard() {
               ) : (
                 <div className="admin-inventory-grid">
                   {products.map((product) => (
-                    // Clicking this card redirects to your gorgeous ProductDetail page!
-                    <div 
+                   <div 
                       key={product.id} 
                       className="admin-product-card"
-                      onClick={() => navigate(`/product/${product.slug}`)}
+                      onClick={() => navigate(`/products/${product.slug}`)}
                     >
                       <div className="admin-card-image">
                         <img src={product.main_image} alt={product.name} />
@@ -241,6 +303,14 @@ export default function AdminDashboard() {
                         <h4>{product.name}</h4>
                         <p className="admin-card-price">₹{product.price.toLocaleString()}</p>
                         <p className="admin-card-brand">{product.brand}</p>
+                        <div className="admin-card-actions">
+                          <button 
+                            className={`hero-toggle-btn ${product.is_hero ? 'active' : ''}`}
+                            onClick={(e) => toggleHeroStatus(e, product.id, product.is_hero)}
+                          >
+                            {product.is_hero ? '★ FEATURED ' : '☆ FEATURE'}
+                          </button>
+                        </div>
                       </div>
                     </div>
                   ))}
@@ -248,6 +318,45 @@ export default function AdminDashboard() {
               )}
             </div>
           )}
+        {activeTab === 'orders' && (
+            <div className="admin-orders-section">
+              <h2>Recent Orders</h2>
+              <div className="orders-list">
+                {orders.map(order => (
+                  <div key={order.id} style={{ border: '1px solid #ddd', padding: '20px', marginBottom: '20px', background: '#fff' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', borderBottom: '1px solid #eee', paddingBottom: '10px', marginBottom: '15px' }}>
+                      <strong>Order #{order.id.split('-')[0].toUpperCase()}</strong>
+                      <span style={{ color: '#00a000' }}>{order.payment_status}</span>
+                    </div>
+                    
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
+                      <div>
+                        <p><strong>Customer:</strong> {order.customer_name}</p>
+                        <p><strong>Phone:</strong> {order.customer_phone}</p>
+                        <p><strong>Address:</strong> {order.shipping_address}</p>
+                        <p><strong>Total:</strong> ₹{order.total_amount.toLocaleString()}</p>
+                      </div>
+                      
+                      <div style={{ background: '#f9f9f9', padding: '15px' }}>
+                        <strong>Items Purchased:</strong>
+                        {order.order_items.map(item => (
+                          <p key={item.id} style={{ margin: '5px 0', fontSize: '0.9rem' }}>
+                            {item.quantity}x {item.product_name} (Size: {item.size})
+                          </p>
+                        ))}
+                      </div>
+                    </div>
+                    
+                    <button style={{ marginTop: '15px', padding: '8px 16px', background: '#1a1a1a', color: '#fff', border: 'none' }}>
+                      Mark as Shipped
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+
         </div>
       </main>
     </div>

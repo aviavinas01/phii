@@ -1,0 +1,268 @@
+.profile-page-wrapper {
+  min-height: 100vh;
+  background-color: #ffff;
+  padding: 160px 40px 80px 40px;
+}
+
+.profile-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 250px 1fr;
+  gap: 80px;
+}
+
+/* --- SIDEBAR --- */
+.profile-greeting {
+  font-size: 2rem;
+  font-weight: 400;
+  margin: 0 0 40px 0;
+  color: #1a1a1a;
+  word-break: break-all;
+}
+
+.profile-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.profile-nav button {
+  background: none;
+  border: none;
+  text-align: left;
+  padding: 0;
+  font-size: 0.95rem;
+  color: #666;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.profile-nav button:hover, .profile-nav button.active {
+  color: #1a1a1a;
+}
+
+.profile-nav button.active {
+  font-weight: 600;
+}
+
+.logout-btn {
+  margin-top: 40px;
+  color: #a00 !important;
+  text-decoration: underline;
+}
+
+.login-btn {
+  margin-top: 40px;
+  text-decoration: underline;
+}
+
+/* --- MAIN CONTENT --- */
+.section-title {
+  font-size: 2.2rem;
+  font-weight: 400;
+  margin: 0 0 30px 0;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 15px;
+}
+
+.empty-state-box {
+  background: #fff;
+  padding: 60px 40px;
+  text-align: center;
+  border: 1px solid #eaeaea;
+}
+
+.empty-state-box p {
+  color: #666;
+  margin-bottom: 25px;
+}
+
+.btn-outline {
+  background: transparent;
+  border: 1px solid #1a1a1a;
+  color: #1a1a1a;
+  padding: 12px 24px;
+  cursor: pointer;
+  letter-spacing: 0.1em;
+  font-size: 0.8rem;
+  transition: all 0.3s ease;
+}
+
+.btn-outline:hover {
+  background: #1a1a1a;
+  color: #fff;
+}
+
+.settings-form {
+  display: flex;
+  flex-direction: column;
+  max-width: 400px;
+}
+
+.settings-form label {
+  font-size: 0.85rem;
+  color: #666;
+  margin-bottom: 8px;
+}
+
+.disabled-input {
+  padding: 12px;
+  border: 1px solid #ddd;
+  background: #f9f9f9;
+  color: #888;
+  cursor: not-allowed;
+}
+/* ─────────────────────────────────────────────
+   AUTHENTICATION SCREENS (LOGIN/OTP)
+───────────────────────────────────────────── */
+.auth-layout {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 100px; /* Offset for navbar */
+}
+
+.auth-box {
+  background: #fff;
+  padding: 60px 50px;
+  width: 100%;
+  max-width: 480px;
+  border: 1px solid #eaeaea;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.03);
+  text-align: center;
+}
+
+.auth-title {
+  font-size: 2.2rem;
+  font-weight: 400;
+  color: #1a1a1a;
+  margin: 0 0 10px 0;
+}
+
+.auth-subtitle {
+  color: #666;
+  font-size: 0.9rem;
+  margin-bottom: 40px;
+  line-height: 1.5;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.auth-input {
+  padding: 16px;
+  border: 1px solid #ddd;
+  background: transparent;
+  font-size: 1rem;
+  margin-bottom: 20px;
+  outline: none;
+  transition: border-color 0.3s ease;
+  text-align: center;
+  letter-spacing: 0.05em;
+}
+
+.auth-input:focus {
+  border-color: #1a1a1a;
+}
+/* Replace .admin-door-btn with this */
+.auth-text-btn {
+  background: none;
+  border: none;
+  color: #888;
+  font-size: 0.8rem;
+  cursor: pointer;
+  text-decoration: underline;
+  margin-top: 10px;
+}
+
+.auth-text-btn:hover {
+  color: #1a1a1a;
+}
+.btn-auth {
+  background: #1a1a1a;
+  color: #fff;
+  border: none;
+  padding: 16px;
+  cursor: pointer;
+  letter-spacing: 0.1em;
+  font-size: 0.85rem;
+  transition: background-color 0.3s ease;
+  margin-bottom: 25px;
+}
+
+.btn-auth:hover {
+  background: #333;
+}
+
+.btn-auth:disabled {
+  background: #888;
+  cursor: not-allowed;
+}
+
+.auth-message {
+  color: #1a1a1a;
+  font-size: 0.85rem;
+  margin: -10px 0 20px 0;
+  font-style: italic;
+}
+
+.auth-message.error {
+  color: #a00;
+}
+
+/* ─────────────────────────────────────────────
+   PHONE & COUNTRY CODE INPUT GROUP
+───────────────────────────────────────────── */
+.phone-input-group {
+  display: flex;
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+  background: transparent;
+  transition: border-color 0.3s ease;
+}
+
+/* Makes the whole group highlight when either field is clicked */
+.phone-input-group:focus-within {
+  border-color: #1a1a1a;
+}
+
+.country-select {
+  padding: 16px 10px;
+  border: none;
+  background: transparent;
+  font-size: 1rem;
+  color: #1a1a1a;
+  outline: none;
+  cursor: pointer;
+  border-right: 1px solid #ddd;
+  font-family: inherit;
+}
+
+/* Target the specific input inside the group to override standard auth-input styles */
+.auth-input.phone-input {
+  flex-grow: 1;
+  border: none;
+  margin-bottom: 0;
+  text-align: left;
+  padding-left: 15px;
+}
+
+/* Remove default focus outline since the parent handles it */
+.auth-input.phone-input:focus {
+  border-color: transparent;
+  outline: none;
+}
+
+@media (max-width: 768px) {
+  .profile-container {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .profile-greeting {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+  }
+}

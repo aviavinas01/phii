@@ -56,7 +56,7 @@
 }
 
 .admin-nav button:hover {
-  color: #fff;
+  color: #e5d0b3;
   background: rgba(255, 255, 255, 0.02);
 }
 
@@ -131,9 +131,9 @@
 .form-group input, 
 .form-group select, 
 .form-group textarea {
-  background: #1a1a1a;
-  border: 1px solid #333;
-  color: #fff;
+  background: #ffffff;
+  border: 1px solid #e5d0b3;
+  color: #000000;
   padding: 14px;
   font-size: 0.95rem;
   outline: none;
@@ -280,4 +280,41 @@
   font-size: 0.7rem;
   color: #666;
   letter-spacing: 0.1em;
+}
+/* ─────────────────────────────────────────────
+   HERO TOGGLE BUTTON
+───────────────────────────────────────────── */
+.admin-card-actions {
+  margin-top: 15px;
+  border-top: 1px solid #2a2a2a;
+  padding-top: 15px;
+}
+
+.hero-toggle-btn {
+  width: 100%;
+  padding: 10px;
+  background: transparent;
+  border: 1px solid #444;
+  color: #888;
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+.hero-toggle-btn:hover {
+  border-color: #e5d0b3; /* Your gold color */
+  color: #e5d0b3;
+}
+
+/* When the item is actively featured on the homepage */
+.hero-toggle-btn.active {
+  background: rgba(229, 208, 179, 0.1);
+  border-color: #e5d0b3;
+  color: #e5d0b3;
+  font-weight: 600;
 }
