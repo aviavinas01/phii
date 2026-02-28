@@ -25,7 +25,7 @@ export default function Gatekeeper({ onClose }) {
   return (
     <div className="gatekeeper-overlay" onClick={onClose}>
       <div className="gatekeeper-box" onClick={(e) => e.stopPropagation()}>
-        <h3>SYSTEM VERIFICATION</h3>
+        <h3>ADMIN AUTHORIZATION</h3>
         <form onSubmit={handleVerify}>
           <input 
             type="password" /* Use password type so nobody looking over your shoulder sees the number */
