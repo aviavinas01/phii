@@ -2,11 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { supabase } from '../../supabaseClient';
 import { useStore } from '../../context/StoreContext';
+import { useToast } from '../../context/ToastContext';
 import './ProductDetail.css';
 
 export default function ProductDetail() {
   const { slug } = useParams(); 
   const { addToCart, toggleLike, likes } = useStore();
+  const { showToast } = useToast();
   
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true); 
@@ -39,8 +41,8 @@ export default function ProductDetail() {
   //  Sleek Loading State
   if (loading) {
     return (
-      <div style={{ height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center', background: '#0a0a0a', color: '#e5d0b3', letterSpacing: '0.2em' }}>
-        RETRIEVING FROM VAULT...
+      <div style={{ height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center', background: '#ffffff', color: '#e5d0b3', letterSpacing: '0.2em' }}>
+        loading...
       </div>
     );
   }
@@ -136,11 +138,11 @@ export default function ProductDetail() {
                 className="btn-add-bag"
                 onClick={() => {
                   if (!selectedSize) {
-                    alert("Please select a size first.");
+                    showToast("Please select a size first.");
                     return;
                   }
                   addToCart(product, selectedSize, 1);
-                  alert("Added to your bundle!");
+                  showToast("Added to your bundle!");
                 }}
               >
                 Add to Bag

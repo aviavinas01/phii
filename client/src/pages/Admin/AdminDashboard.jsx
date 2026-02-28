@@ -13,6 +13,7 @@ export default function AdminDashboard() {
   const [sideImages, setSideImages] = useState([]);
   const [orders, setOrders] = useState([]);
   const [mainFile, setMainFile] = useState(null);
+  const [editingProduct, setEditingProduct] = useState(null); 
 
     const [formData, setFormData] = useState({
     name: '',
@@ -85,6 +86,59 @@ export default function AdminDashboard() {
       // If it fails, refresh the inventory to show the true database state
       const { data } = await supabase.from('products').select('*').order('created_at', { ascending: false });
       setProducts(data);
+    }
+  };
+
+  // ─────────────────────────────────────────────
+  // DELETE PRODUCT ENGINE
+  // ─────────────────────────────────────────────
+  const handleDelete = async (e, productId) => {
+    e.stopPropagation(); // Stops the card from clicking through
+    
+    // Safety check!
+    const isConfirmed = window.confirm("Are you sure you want to permanently delete this piece from the vault?");
+    if (!isConfirmed) return;
+
+    // Delete from Supabase
+    const { error } = await supabase
+      .from('products')
+      .delete()
+      .eq('id', productId);
+
+    if (error) {
+      console.error("Error deleting product:", error);
+      alert("Failed to delete product.");
+    } else {
+      // Instantly remove it from your screen without reloading
+      setProducts(products.filter(p => p.id !== productId));
+    }
+  };
+
+  // ─────────────────────────────────────────────
+  // EDIT PRODUCT ENGINE
+  // ─────────────────────────────────────────────
+  const handleEditSubmit = async (e) => {
+    e.preventDefault();
+    
+    // Update Supabase
+    const { error } = await supabase
+      .from('products')
+      .update({
+        name: editingProduct.name,
+        price: editingProduct.price,
+        category: editingProduct.category,
+        description: editingProduct.description,
+      })
+      .eq('id', editingProduct.id);
+
+    if (error) {
+      console.error("Error updating product:", error);
+      alert("Failed to update product.");
+    } else {
+      // Instantly update the UI
+      setProducts(products.map(p => p.id === editingProduct.id ? editingProduct : p));
+      setEditingProduct(null); // Close the modal
+      alert("Product updated successfully!");
     }
   };
 
@@ -310,6 +364,24 @@ export default function AdminDashboard() {
                           >
                             {product.is_hero ? '★ FEATURED ' : '☆ FEATURE'}
                           </button>
+
+                          <div className="admin-modify-actions">
+                            <button 
+                              className="admin-edit-btn"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                setEditingProduct(product); // Opens the modal with this product's data
+                              }}
+                            >
+                              EDIT
+                            </button>
+                            <button 
+                              className="admin-delete-btn"
+                              onClick={(e) => handleDelete(e, product.id)}
+                            >
+                              DELETE
+                            </button>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -359,6 +431,60 @@ export default function AdminDashboard() {
 
         </div>
       </main>
+      {/* ─────────────────────────────────────────────
+          EDIT PRODUCT MODAL
+      ───────────────────────────────────────────── */}
+      {editingProduct && (
+        <div className="admin-modal-overlay" onClick={() => setEditingProduct(null)}>
+          <div className="admin-modal-content" onClick={(e) => e.stopPropagation()}>
+            <div className="admin-modal-header">
+              <h2>Edit Product</h2>
+              <button className="admin-modal-close" onClick={() => setEditingProduct(null)}>&times;</button>
+            </div>
+            
+            <form onSubmit={handleEditSubmit} className="admin-edit-form">
+              <label>Product Name</label>
+              <input 
+                type="text" 
+                value={editingProduct.name} 
+                onChange={(e) => setEditingProduct({...editingProduct, name: e.target.value})}
+                required 
+              />
+
+              <label>Price (₹)</label>
+              <input 
+                type="number" 
+                value={editingProduct.price} 
+                onChange={(e) => setEditingProduct({...editingProduct, price: parseFloat(e.target.value)})}
+                required 
+              />
+
+              <label>Category</label>
+              <select 
+                value={editingProduct.category} 
+                onChange={(e) => setEditingProduct({...editingProduct, category: e.target.value})}
+              >
+                <option value="modern">Modern Silhouette</option>
+                <option value="bridal">Bridal Collection</option>
+                <option value="traditional">Traditional Elegance</option>
+                <option value="avant-garde">Avant-Garde</option>
+              </select>
+
+              <label>Description</label>
+              <textarea 
+                value={editingProduct.description} 
+                onChange={(e) => setEditingProduct({...editingProduct, description: e.target.value})}
+                rows="4"
+              />
+
+              <div className="admin-modal-footer">
+                <button type="button" className="btn-cancel" onClick={() => setEditingProduct(null)}>Cancel</button>
+                <button type="submit" className="btn-save">Save Changes</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

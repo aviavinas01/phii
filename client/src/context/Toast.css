@@ -1,0 +1,56 @@
+/* ─────────────────────────────────────────────
+   LUXURY TOAST NOTIFICATIONS
+───────────────────────────────────────────── */
+.toast-fixed-container {
+  position: fixed;
+  top: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 99999; /* Always on top */
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  pointer-events: none; /* Lets users click through the invisible container */
+}
+
+.toast-card {
+  background: #e6e4e4;
+  color: #e10909;
+  padding: 16px 32px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  animation: slideDownFade 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  font-family: var(--font-body, 'Montserrat', sans-serif);
+  letter-spacing: 0.05em;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+}
+
+.toast-icon {
+  color: #eab974; /* Your brand gold/beige */
+  font-size: 1.2rem;
+}
+
+.toast-error {
+  background: #cc0000;
+}
+.toast-error .toast-icon {
+  color: #fff;
+}
+
+.toast-card p {
+  margin: 0;
+}
+
+@keyframes slideDownFade {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

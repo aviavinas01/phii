@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import confetti from 'canvas-confetti';
+import { useToast } from '../../context/ToastContext';  
 import { useNavigate } from 'react-router-dom';
 import { useStore } from '../../context/StoreContext';
 import { supabase } from '../../supabaseClient';
@@ -7,6 +9,7 @@ import './BundlesPage.css';
 export default function BundlesPage() {
   const navigate = useNavigate();
   const { cart, removeFromCart } = useStore();
+  const { showToast } = useToast();
   
   // Checkout States
   const [isCheckingOut, setIsCheckingOut] = useState(false);
@@ -99,11 +102,17 @@ export default function BundlesPage() {
           }));
 
           await supabase.from('order_items').insert(orderItems);
-
-          // 5. Clean up and Celebrate
           sessionStorage.removeItem('opihage_cart');
-          alert(`Payment Successful! Receipt ID: ${paymentId}`);
-          window.location.href = '/'; 
+          confetti({
+            particleCount: 150,
+            spread: 80,
+            origin: { y: 0.6 },
+            colors: ['#e5d0b3', '#1a1a1a', '#ffffff'] 
+          });
+          showToast(`Payment Successful! Receipt ID: ${paymentId}`);
+          setTimeout(() => {            
+            window.location.href = '/'; 
+          }, 3500);
         }
       },
     };
