@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, Link} from 'react-router-dom';
 import { supabase } from '../../supabaseClient';
+import { useToast } from '../../context/ToastContext';
 import './AdminDashboard.css';
 
 export default function AdminDashboard() {
@@ -239,7 +240,7 @@ export default function AdminDashboard() {
         <div className="admin-brand"><span>ADMIN</span></div>
         <nav className="admin-nav">
           <button className={activeTab === 'inventory' ? 'active' : ''} onClick={() => setActiveTab('inventory')}>Inventory</button>
-          <button className={activeTab === 'add' ? 'active' : ''} onClick={() => setActiveTab('add')}>+ Add Product</button>
+          <button className={activeTab === 'add' ? 'active' : ''} onClick={() => setActiveTab('add')}>Add Product</button>
           <button className={activeTab === 'orders' ? 'active' : ''} onClick={() => setActiveTab('orders')}>
           Orders ({orders.length})
           </button>

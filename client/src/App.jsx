@@ -14,6 +14,8 @@ import SearchPage from './pages/SearchPage/SearchPage';
 import BundlesPage from './pages/BundlesPage/BundlesPage';
 import LikesPage from './pages/LikesPage/LikesPage';
 import ProfilePage from './pages/ProfilePage/ProfilePage';
+import TermsPage from './pages/TermsPage/TermsPage';
+import PrivacyPage from './pages/PrivacyPage/PrivacyPage';
 
 export default function App() {
   return (
@@ -31,6 +33,8 @@ export default function App() {
         <Route path="/bundles" element={<BundlesPage />} />
         <Route path="/likes" element={<LikesPage />} />
         <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/terms" element={<TermsPage />} />
+        <Route path="/privacy" element={<PrivacyPage />} />
       </Routes>
       <Footer />
     </BrowserRouter>

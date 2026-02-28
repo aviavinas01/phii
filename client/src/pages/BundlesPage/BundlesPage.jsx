@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import confetti from 'canvas-confetti';
 import { useToast } from '../../context/ToastContext';  
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useStore } from '../../context/StoreContext';
 import { supabase } from '../../supabaseClient';
 import './BundlesPage.css';
@@ -145,7 +145,7 @@ export default function BundlesPage() {
               <div className="bundles-items">
                 {cart.map((item, index) => (
                   <div key={`${item.id}-${item.size}-${index}`} className="bundle-item-card">
-                    <img src={item.main_image} alt={item.name} className="bundle-item-img" />
+                    <Link to={`/products/${item.slug}`}><img src={item.main_image} alt={item.name} className="bundle-item-img" /></Link>
                     <div className="bundle-item-details">
                       <h3 className="bundle-item-name">{item.name}</h3>
                       <p className="bundle-item-size">Size: {item.size}</p>

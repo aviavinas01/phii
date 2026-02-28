@@ -47,8 +47,8 @@ export default function Footer() {
         <div className="footer-col">
           <h3 className="footer-heading">SOCIAL</h3>
           <ul className="footer-list">
-            <li><a href="https://www.instagram.com/opihage__24?igsh=N3J4OW52cnE5eGVl" target="_blank" rel="noreferrer">Instagram</a></li>
-            <li><a href="https://pin.it/5mQoH0OwI" target="_blank" rel="noreferrer">Pinterest</a></li>
+            <li><a href="https://www.instagram.com/victoriassecret?igsh=N3J4OW52cnE5eGVl" target="_blank" rel="noreferrer">Instagram</a></li>
+            <li><a href="https://www.pinterest.com" target="_blank" rel="noreferrer">Pinterest</a></li>
             <li><a href="https://behance.net" target="_blank" rel="noreferrer">Behance</a></li>
           </ul>
         </div>
@@ -61,7 +61,7 @@ export default function Footer() {
           style={{ cursor: 'default'}}>
           © 2026 opihage. All rights reserved.</p>
         <div className="legal-links">
-          <Link to="/privacy-policy">Privacy Policy</Link>
+          <Link to="/privacy">Privacy Policy</Link>
           <Link to="/terms">Terms of Service</Link>
         </div>
       </div>

@@ -50,17 +50,78 @@ body {
   }
 }
 
+/* ─────────────────────────────────────────────
+   GLOBAL MOBILE OVERRIDE (Phones & Small Tablets)
+   Triggered only on screens 768px or smaller
+───────────────────────────────────────────── */
 @media (max-width: 768px) {
-  .page-container {
-    padding: 24px;
+
+  /* 1. SCALE DOWN GLOBAL WRAPPER PADDINGS 
+     (Laptop has 160px padding, phones only need 100px) */
+  .pdp-wrapper, 
+  .bundles-page-wrapper, 
+  .profile-page-wrapper, 
+  .likes-page-wrapper, 
+  .legal-page-wrapper,
+  .category-page-wrapper {
+    padding: 100px 20px 40px 20px !important;
+  }
+
+  /* 2. STACK THE MAIN GRIDS VERTICALLY */
+  .pdp-grid, 
+  .bundles-content, 
+  .profile-container {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 40px !important;
+  }
+
+  /* 3. FIX PRODUCT DETAILS MOBILE BEHAVIOR */
+  .pdp-col-left.sticky-col,
+  .pdp-col-right.sticky-col {
+    position: relative !important; /* Disables sticky scrolling on phones */
+    top: 0 !important;
+  }
+
+  /* 4. SHRINK MASSIVE LUXURY FONTS */
+  .pdp-brand, 
+  .legal-title, 
+  .bundles-title, 
+  .likes-title, 
+  .auth-title {
+    font-size: 2rem !important; /* Keeps it elegant but fits the screen */
+  }
+
+  /* 5. FIX THE CART / BUNDLES PAGE */
+  .bundle-item-card {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
   }
   
-  .page-container h1 {
-    font-size: 24px;
+  .bundle-item-img {
+    width: 100%;
+    max-width: 250px;
+    height: auto;
   }
   
-  .page-container p {
-    font-size: 15px;
+  .bundles-summary {
+    position: relative !important; /* Stops the summary box from floating weirdly */
+    top: 0 !important;
+    padding: 20px !important;
+  }
+
+  /* 6. FIX THE CHECKOUT FORM INPUTS */
+  .checkout-row {
+    grid-template-columns: 1fr !important; /* Stacks City and Zip Code */
+  }
+
+  /* 7. SHRINK ICONS AND BUTTONS SLIGHTLY */
+  .btn-pay-now, 
+  .btn-checkout, 
+  .btn-auth {
+    padding: 14px !important;
+    font-size: 0.8rem !important;
   }
 }
 
