@@ -33,7 +33,7 @@ export default function LikesPage() {
             <div key={product.id} className="likes-product-card">
               <div 
                 className="likes-card-image-wrap"
-                onClick={() => navigate(`/product/${product.slug}`)}
+                onClick={() => navigate(`/products/${product.slug}`)}
               >
                 <img src={product.main_image} alt={product.name} className="likes-card-image" />
                 
