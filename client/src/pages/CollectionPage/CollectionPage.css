@@ -1,0 +1,111 @@
+/* src/pages/CollectionPage.css */
+
+/* Global styles for this page only */
+.collection-page {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  color: #333;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Header and Navigation */
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 3rem;
+  border-bottom: 1px solid #eaeaea;
+}
+
+.brand-logo a {
+  font-weight: bold;
+  font-size: 1.25rem;
+  color: #333;
+  text-decoration: none;
+  letter-spacing: 0.05em;
+}
+
+.main-nav a {
+  margin: 0 1rem;
+  text-decoration: none;
+  color: #555;
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+.header-icons {
+  display: flex;
+  gap: 1rem;
+}
+
+.header-icons .icon {
+  font-size: 1.2rem;
+  color: #777;
+}
+
+/* Product Grid */
+.product-grid-container {
+  padding: 3rem;
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+}
+
+/* Product Card */
+.product-card {
+  transition: box-shadow 0.3s ease;
+  padding: 1rem;
+}
+
+/* Subtle shadow effect on hover, similar to luxury brand design */
+.product-card:hover {
+  box-shadow: 0 10px 20px rgba(0,0,0,0.05); 
+}
+
+.product-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.product-image-container {
+  width: 100%;
+  aspect-ratio: 1 / 1; /* Keeps images square as designed */
+  overflow: hidden;
+  margin-bottom: 0.75rem;
+  background-color: #f9f9f9; /* Design fallback */
+}
+
+.product-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.product-card:hover .product-image {
+  transform: scale(1.02); /* Slight zoom on hover */
+}
+
+.product-details {
+  padding: 0 0.5rem;
+}
+
+.product-name {
+  font-size: 0.85rem;
+  margin: 0 0 0.25rem 0;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  color: #444;
+}
+
+.product-price {
+  font-size: 0.85rem;
+  margin: 0;
+  color: #666;
+}

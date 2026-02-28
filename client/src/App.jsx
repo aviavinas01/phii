@@ -16,6 +16,7 @@ import LikesPage from './pages/LikesPage/LikesPage';
 import ProfilePage from './pages/ProfilePage/ProfilePage';
 import TermsPage from './pages/TermsPage/TermsPage';
 import PrivacyPage from './pages/PrivacyPage/PrivacyPage';
+import CollectionPage from './pages/CollectionPage/CollectionPage';
 
 export default function App() {
   return (
@@ -35,6 +36,7 @@ export default function App() {
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/terms" element={<TermsPage />} />
         <Route path="/privacy" element={<PrivacyPage />} />
+        <Route path="/collections" element={<CollectionPage/>}/>
       </Routes>
       <Footer />
     </BrowserRouter>
