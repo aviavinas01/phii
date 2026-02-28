@@ -8,7 +8,7 @@ export default function Gatekeeper({ onClose }) {
   const navigate = useNavigate();
 
   // Your actual phone number goes here
-  const ADMIN_PHONE = import.meta.env.VITE_APP_ADMIN_PHONE; 
+  const ADMIN_PHONE = import.meta.env.VITE_ADMIN_PHONE; 
 
   const handleVerify = (e) => {
     e.preventDefault();
