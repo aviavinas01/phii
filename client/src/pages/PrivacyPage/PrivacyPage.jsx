@@ -61,7 +61,7 @@ export default function PrivacyPage() {
 
         <h2>9. Contact</h2>
         <p>For privacy-related questions:<br/>
-        Email: contact@opihage.com</p>
+        Email: contact@divine.com</p>
       </div>
     </div>
   );

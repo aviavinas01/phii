@@ -93,7 +93,7 @@ export default function ProductDetail() {
         {/* RIGHT COLUMN: Fixed Details & Cart Actions */}
         <div className="pdp-col-right sticky-col">
           <div className="pdp-details-container">
-            {/* Hardcoding OPIHAGE as the brand, or use product.brand if you add it to the DB */}
+            {/* Hardcoding DIVINE as the brand, or use product.brand if you add it to the DB */}
             <p className="pdp-name">{product.name}</p>
 
             <div className="pdp-pricing">

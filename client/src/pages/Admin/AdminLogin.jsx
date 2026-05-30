@@ -39,7 +39,7 @@ export default function AdminLogin() {
   return (
     <div className="admin-login-wrapper">
       <div className="admin-login-box">
-        <h1 className="admin-logo">OPIHAGE</h1>
+        <h1 className="admin-logo">DIVINE</h1>
         <p className="admin-subtitle">Welcome Back :)</p>
         
         <form onSubmit={handleLogin} className="admin-form">

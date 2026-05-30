@@ -13,7 +13,7 @@ export default function TermsPage() {
         <p className="legal-updated">Last Updated: March 2026</p>
 
         <h2>1. Introduction</h2>
-        <p>Welcome to Opihage. This website serves as a personal fashion portfolio showcasing creative work, projects, and related content. By accessing or using this website, you agree to the terms outlined below. If you do not agree with these terms, please refrain from using the site.</p>
+        <p>Welcome to Divine. This website serves as a personal fashion portfolio showcasing creative work, projects, and related content. By accessing or using this website, you agree to the terms outlined below. If you do not agree with these terms, please refrain from using the site.</p>
 
         <h2>2. Purpose of the Website</h2>
         <p>This website is intended for:</p>
@@ -33,7 +33,7 @@ export default function TermsPage() {
           <li>Text</li>
           <li>Logos and branding</li>
         </ul>
-        <p>is the intellectual property of Opihage, unless otherwise stated. You may not copy, reproduce, distribute, modify content, use content for commercial purposes, or claim ownership of any showcased work without prior written permission.</p>
+        <p>is the intellectual property of Divine, unless otherwise stated. You may not copy, reproduce, distribute, modify content, use content for commercial purposes, or claim ownership of any showcased work without prior written permission.</p>
 
         <h2>4. Permitted Use</h2>
         <p>You may:</p>
@@ -59,7 +59,7 @@ export default function TermsPage() {
 
         <h2>8. Contact</h2>
         <p>For permissions, inquiries, or concerns:<br/>
-        Email: contact@opihage.com</p>
+        Email: contact@divine.com</p>
       </div>
     </div>
   );

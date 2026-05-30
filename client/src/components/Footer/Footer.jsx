@@ -27,7 +27,7 @@ export default function Footer() {
       <div className="footer-top">
         {/* Brand Column */}
         <div className="footer-col brand-col">
-          <h2 className="footer-logo">OPIHAGE</h2>
+          <h2 className="footer-logo">DIVINE</h2>
           <p className="footer-desc">
             Available for bespoke commissions and<br />
             collaborative editorial projects worldwide.
@@ -38,7 +38,7 @@ export default function Footer() {
         <div className="footer-col">
           <h3 className="footer-heading">CONTACT</h3>
           <ul className="footer-list">
-            <li><a href="mailto:studio@aura.com">contact@opihage.com</a></li>
+            <li><a href="mailto:studio@aura.com">contact@divine.com</a></li>
             <li><a href="tel:+1234567890">+91 (234) 567-8901</a></li>
           </ul>
         </div>
@@ -59,7 +59,7 @@ export default function Footer() {
         <p className="copyright" 
           onDoubleClick={handleSecretDoubleClick}
           style={{ cursor: 'default'}}>
-          © 2026 opihage. All rights reserved.</p>
+          © 2026 divine. All rights reserved.</p>
         <div className="legal-links">
           <Link to="/privacy">Privacy Policy</Link>
           <Link to="/terms">Terms of Service</Link>

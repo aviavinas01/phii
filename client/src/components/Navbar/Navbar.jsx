@@ -79,7 +79,7 @@ useEffect(() => {
       <nav className="top-navbar">
         <div className="navbar-left">
           <div className="logo" onClick={() => handleNavigation('/')}>
-            <span className="logo-text">opihage</span>
+            <span className="logo-text">divine</span>
           </div>
         </div>
 

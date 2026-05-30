@@ -46,24 +46,21 @@ const CATEGORIES = [
 export default function PortfolioSection() {
   const navigate = useNavigate();
   const observerRef = useRef(null);
+  const delayClasses = ['delay-1', 'delay-2', 'delay-3', 'delay-4'];
 
   useEffect(() => {
-    // This observer watches elements and adds/removes the 'visible' class
-    // based on whether they are in the screen or not (creating the scroll in/out effect)
+    // Animate cards in once when they enter view; do not remove the class.
     observerRef.current = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.classList.add('visible');
-          } else {
-            // Removing the class when it leaves the screen makes it slide out
-            entry.target.classList.remove('visible');
           }
         });
       },
       {
-        threshold: 0.15, // Triggers when 15% of the image is visible
-        rootMargin: "0px 0px -50px 0px" // Triggers slightly before the very bottom
+        threshold: 0.25,
+        rootMargin: "0px 0px -120px 0px"
       }
     );
 
@@ -95,10 +92,10 @@ export default function PortfolioSection() {
 
       {/* GRID AREA */}
       <div className="portfolio-grid">
-        {CATEGORIES.map((cat) => (
+        {CATEGORIES.map((cat, index) => (
           <div
             key={cat.id}
-            className={`portfolio-card ${cat.gridClass}`}
+            className={`portfolio-card ${cat.gridClass} ${delayClasses[index % delayClasses.length]}`}
             onClick={() => navigate(cat.path)}
           >
             <div className="portfolio-image-wrapper">

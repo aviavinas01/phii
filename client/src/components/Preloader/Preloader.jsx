@@ -53,7 +53,7 @@ export default function Preloader() {
 
   return (
     <div className={`preloader-wrapper ${isLoaded ? 'burst-out' : ''}`}>
-      <div className="preloader-logo">opihage</div>
+      <div className="preloader-logo">divine</div>
     </div>
   );
 }

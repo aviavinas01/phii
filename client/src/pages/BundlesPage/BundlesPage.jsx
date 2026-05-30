@@ -62,7 +62,7 @@ export default function BundlesPage() {
       key: "rzp_test_YOUR_KEY_HERE", // 🔥 Replace with your Razorpay Test Key ID 🔥
       amount: cartTotal * 100, // Razorpay calculates in Paise (Multiply by 100)
       currency: "INR",
-      name: "Opihage Vault",
+      name: "Divine Vault",
       description: "Luxury Fashion Transaction",
       theme: {
         color: "#1a1a1a", // Matches your sleek dark branding
@@ -102,7 +102,7 @@ export default function BundlesPage() {
           }));
 
           await supabase.from('order_items').insert(orderItems);
-          sessionStorage.removeItem('opihage_cart');
+          sessionStorage.removeItem('divine_cart');
           confetti({
             particleCount: 150,
             spread: 80,

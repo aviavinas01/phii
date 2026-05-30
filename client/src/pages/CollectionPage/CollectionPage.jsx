@@ -21,7 +21,7 @@ const CollectionPage = () => {
     <div className="collection-page">
       <header className="page-header">
         <div className="brand-logo">
-          <Link to="/">OPIHAGE</Link>
+          <Link to="/">DIVINE</Link>
         </div>
         <nav className="main-nav">
           <Link to="/">HOME</Link>

@@ -12,20 +12,20 @@ export const StoreProvider = ({ children }) => {
 
   // Load from LocalStorage on mount so data survives a refresh
   useEffect(() => {
-    const savedCart = JSON.parse(localStorage.getItem('opihage_cart')) || [];
-    const savedLikes = JSON.parse(localStorage.getItem('opihage_likes')) || [];
+    const savedCart = JSON.parse(localStorage.getItem('divine_cart')) || [];
+    const savedLikes = JSON.parse(localStorage.getItem('divine_likes')) || [];
     setCart(savedCart);
     setLikes(savedLikes);
   }, []);
 
   // Save to LocalStorage whenever cart changes
   useEffect(() => {
-    localStorage.setItem('opihage_cart', JSON.stringify(cart));
+    localStorage.setItem('divine_cart', JSON.stringify(cart));
   }, [cart]);
 
   // Save to LocalStorage whenever likes change
   useEffect(() => {
-    localStorage.setItem('opihage_likes', JSON.stringify(likes));
+    localStorage.setItem('divine_likes', JSON.stringify(likes));
   }, [likes]);
 
   // --- Cart Actions ---

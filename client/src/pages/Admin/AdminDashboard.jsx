@@ -167,12 +167,12 @@ export default function AdminDashboard() {
       const mainExt = mainFile.name.split('.').pop();
       const mainName = `main-${Date.now()}.${mainExt}`;
       const { error: mainError } = await supabase.storage
-        .from('opihage-assets')
+        .from('divine-assets')
         .upload(mainName, mainFile);
       if (mainError) throw mainError;
 
-      const { data: { publicUrl: mainUrl } } = supabase.storage
-        .from('opihage-assets')
+      const { data: { publicUrl: mainUrl } } = await supabase.storage
+        .from('divine-assets')
         .getPublicUrl(mainName);
 
       // - UPLOAD GALLERY IMAGES -
@@ -184,13 +184,13 @@ export default function AdminDashboard() {
         const name = `gallery/${Date.now()}-${Math.random().toString(36).substring(7)}.${ext}`;
         
         const { error: gError } = await supabase.storage
-          .from('opihage-assets')
+          .from('divine-assets')
           .upload(name, file);
         
         if (gError) throw gError;
 
         const { data: { publicUrl: gUrl } } = supabase.storage
-          .from('opihage-assets')
+          .from('divine-assets')
           .getPublicUrl(name);
         
         galleryUrls.push(gUrl);
