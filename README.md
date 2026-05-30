@@ -26,9 +26,34 @@ This website is crafted to feel like a polished fashion brand experience. The po
 
 ## Installation
 
-1. Clone the repository
-2. Install dependencies in `client/` and `server/` if applicable
-3. Start the development server and preview the site locally
+Follow these steps to clone the project from GitHub and set up the React application locally:
+
+1. Open a terminal and clone the repository:
+   ```bash
+   git clone https://github.com/aviavinas01/phii.git
+   ```
+2. Change into the project directory:
+   ```bash
+   cd phii
+   ```
+3. Install the client dependencies:
+   ```bash
+   cd client
+   npm install
+   ```
+4. If you are also using the backend, open a second terminal and install server dependencies:
+   ```bash
+   cd phii/server
+   npm install
+   ```
+5. Start the React development server:
+   ```bash
+   cd phii/client
+   npm run dev
+   ```
+6. Open your browser and visit `http://localhost:5173` to view the site.
+
+If you have npm installed but prefer Yarn or pnpm, you can replace `npm install` with `yarn install` or `pnpm install`.
 
 ## License
 
